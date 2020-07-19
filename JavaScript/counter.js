@@ -1,4 +1,5 @@
 // What is a Closure? 
+// A closure is a function having access to the parent scope, even after the parent function has closed.
 // A closure gives you access to an outer function’s scope from an inner function.
 
 const counter = function() {
@@ -21,8 +22,8 @@ const counter = function() {
     }
   };
   
-  var counter1 = counter();
-  var counter2 = counter();
+  const counter1 = counter();
+  const counter2 = counter();
   
   console.log(counter1.value());  // 0.
   
