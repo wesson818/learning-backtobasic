@@ -58,7 +58,9 @@ class App extends Component {
           <Search 
             value={searchTerm} 
             onChange={this.onSearchChange} 
-          />
+          >
+            Search:
+          </Search>
           <p>{searchTerm}</p>
           <p>
             Edit <code>src/App.js</code> and save to reload.
@@ -74,49 +76,102 @@ class App extends Component {
   }
 }
 
-class Search extends Component {
-  render() {
-    const { value, onChange } = this.props;
-    return (
-      <form>
-        <input
-        type="text"
-        value={value}
-        onChange={onChange}
-        />
-      </form>
-    );
-  }
-}
+// ES 6 components
+// class Search extends Component {
+//   render() {
+//     const { value, onChange, children } = this.props;
+//     return (
+//       <form>
+//         {children} <input
+//         type="text"
+//         value={value}
+//         onChange={onChange}
+//         />
+//       </form>
+//     );
+//   }
+// }
 
-class Table extends Component {
-  render(){
-    const {list, pattern, onDismiss} = this.props;
-    const isSearched = pattern => item =>
-      item.title.toLowerCase().includes(pattern.toLowerCase());
-    return(
-      <div>
-        {
-          list.filter(isSearched(pattern)).map((item) => 
-              <div key={item.objectID}>
-                <span><a href="{item.url}">{item.title}</a></span><br />
-                <span>creat by {item.author}</span><br />
-                <span>{item.num_comments}</span><br />
-                <span>{item.points}</span><br />
-                <span>
-                  {/* <button onClick={this.onDismiss(item.objectID)} type="button"> */}
-                  <button onClick={() => onDismiss(item.objectID)} type="button">
-                  {/* <button onClick={function(){console.log(item.objectID)}} type="button"> */}
-                    Dismiss
-                  </button>
-                </span><br /><br />
-              </div>
-            )
-          }
-      </div>
-    )
-  }
-}
+// functional stateless components
+const Search = ({ value, onChange, children }) =>
+<form>
+  {children} <input
+    type="text"
+    value={value}
+    onChange={onChange}
+  />
+</form>
+
+// class Table extends Component {
+//   render(){
+//     const {list, pattern, onDismiss} = this.props;
+//     const isSearched = pattern => item =>
+//       item.title.toLowerCase().includes(pattern.toLowerCase());
+//     return(
+//       <div>
+//         {
+//           list.filter(isSearched(pattern)).map((item) => 
+//               <div key={item.objectID}>
+//                 <span><a href="{item.url}">{item.title}</a></span><br />
+//                 <span>creat by {item.author}</span><br />
+//                 <span>{item.num_comments}</span><br />
+//                 <span>{item.points}</span><br />
+//                 <span>
+//                   {/* <button onClick={() => onDismiss(item.objectID)} type="button">
+//                     Dismiss
+//                   </button> */}
+//                   <Button onClick={() => onDismiss(item.objectID)}>
+//                     Dismiss
+//                   </Button>
+//                 </span><br /><br />
+//               </div>
+//             )
+//           }
+//       </div>
+//     )
+//   }
+// }
+
+// functional stateless components
+const Table = ({list, pattern, onDismiss, isSearched = pattern => item => item.title.toLowerCase().includes(pattern.toLowerCase())}) => 
+  <div>
+    {
+      list.filter(isSearched(pattern)).map((item) => 
+        <div key={item.objectID}>
+          <span><a href="{item.url}">{item.title}</a></span><br />
+          <span>creat by {item.author}</span><br />
+          <span>{item.num_comments}</span><br />
+          <span>{item.points}</span><br />
+          <span>
+            <Button onClick={() => onDismiss(item.objectID)}>
+              Dismiss
+            </Button>
+          </span><br /><br />
+        </div>
+      )
+    }
+  </div>
+
+// class Button extends Component {
+//   render(){
+//     const {onClick, className='', children} = this.props;
+//     return(
+//       <button 
+//         type="button"
+//         onClick={onClick}
+//         className={className}
+//       >{children}</button>
+//     )
+//   }
+// }
+
+// functional stateless components
+const Button = ({onClick, className='', children}) =>
+  <button 
+    type="button"
+    onClick={onClick}
+    className={className}
+  >{children}</button>
 
 class Developer {
   constructor(firstname, lastname) {
