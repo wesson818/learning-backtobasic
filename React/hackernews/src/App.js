@@ -49,23 +49,55 @@ class App extends Component {
     // ES6
     const {list, searchTerm} = this.state;
 
-    const isSearched = searchTerm => item =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
     return (
       <div className="App">
         <header className="App-header">
           <h2>Hi {robin.getName()}, {helloWorld}</h2>
           <img src={logo} className="App-logo" alt="logo" />
-          <form>
-            <input type="text" value={searchTerm} onChange={this.onSearchChange} />
-          </form>
+          <Search 
+            value={searchTerm} 
+            onChange={this.onSearchChange} 
+          />
+          <p>{searchTerm}</p>
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <p>{searchTerm}</p>
-          {
-            list.filter(isSearched(searchTerm)).map((item) => 
+          <Table 
+            list={list} 
+            pattern={searchTerm}
+            onDismiss={this.onDismiss}
+          />
+        </header>
+      </div>
+    );
+  }
+}
+
+class Search extends Component {
+  render() {
+    const { value, onChange } = this.props;
+    return (
+      <form>
+        <input
+        type="text"
+        value={value}
+        onChange={onChange}
+        />
+      </form>
+    );
+  }
+}
+
+class Table extends Component {
+  render(){
+    const {list, pattern, onDismiss} = this.props;
+    const isSearched = pattern => item =>
+      item.title.toLowerCase().includes(pattern.toLowerCase());
+    return(
+      <div>
+        {
+          list.filter(isSearched(pattern)).map((item) => 
               <div key={item.objectID}>
                 <span><a href="{item.url}">{item.title}</a></span><br />
                 <span>creat by {item.author}</span><br />
@@ -73,7 +105,7 @@ class App extends Component {
                 <span>{item.points}</span><br />
                 <span>
                   {/* <button onClick={this.onDismiss(item.objectID)} type="button"> */}
-                  <button onClick={() => this.onDismiss(item.objectID)} type="button">
+                  <button onClick={() => onDismiss(item.objectID)} type="button">
                   {/* <button onClick={function(){console.log(item.objectID)}} type="button"> */}
                     Dismiss
                   </button>
@@ -81,9 +113,8 @@ class App extends Component {
               </div>
             )
           }
-        </header>
       </div>
-    );
+    )
   }
 }
 
