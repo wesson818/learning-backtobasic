@@ -55,16 +55,15 @@ class App extends Component {
         <header className="App-header">
           <h2>Hi {robin.getName()}, {helloWorld}</h2>
           <img src={logo} className="App-logo" alt="logo" />
-          <Search 
-            value={searchTerm} 
-            onChange={this.onSearchChange} 
-          >
-            Search:
-          </Search>
-          <p>{searchTerm}</p>
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
+          <div className="interactions">
+            <Search 
+              value={searchTerm} 
+              onChange={this.onSearchChange} 
+            >
+              Search:
+            </Search>
+            <p>{searchTerm}</p>
+          </div>
           <Table 
             list={list} 
             pattern={searchTerm}
@@ -76,7 +75,7 @@ class App extends Component {
   }
 }
 
-// ES 6 components
+// ES6 class components
 // class Search extends Component {
 //   render() {
 //     const { value, onChange, children } = this.props;
@@ -102,6 +101,7 @@ const Search = ({ value, onChange, children }) =>
   />
 </form>
 
+// ES6 class components
 // class Table extends Component {
 //   render(){
 //     const {list, pattern, onDismiss} = this.props;
@@ -134,24 +134,25 @@ const Search = ({ value, onChange, children }) =>
 
 // functional stateless components
 const Table = ({list, pattern, onDismiss, isSearched = pattern => item => item.title.toLowerCase().includes(pattern.toLowerCase())}) => 
-  <div>
+  <div className="table">
     {
       list.filter(isSearched(pattern)).map((item) => 
-        <div key={item.objectID}>
-          <span><a href="{item.url}">{item.title}</a></span><br />
-          <span>creat by {item.author}</span><br />
-          <span>{item.num_comments}</span><br />
-          <span>{item.points}</span><br />
-          <span>
+        <div className="table-row" key={item.objectID}>
+          <span style={{width:'15%'}}>
             <Button onClick={() => onDismiss(item.objectID)}>
               Dismiss
             </Button>
-          </span><br /><br />
+          </span>
+          <span style={{width:'40%'}}><a href="{item.url}">{item.title}</a></span><br />
+          <span style={{width:'25%'}}>creat by {item.author}</span><br />
+          <span style={{width:'10%'}}>{item.num_comments}</span><br />
+          <span style={{width:'10%'}}>{item.points}</span><br />
         </div>
       )
     }
   </div>
 
+// ES6 class components
 // class Button extends Component {
 //   render(){
 //     const {onClick, className='', children} = this.props;
@@ -188,3 +189,17 @@ class Developer {
 }
 
 export default App;
+
+// Functional Stateless Components:
+// are functions that take input and return an output. The inputs are the props, 
+// and the output is a component instance in plain JSX. So far, it is quite similar to an ES6 class component. 
+// However, functional stateless components are functions (functional) and they have no local state (stateless). 
+// You cannot access or update the state with this.state or this.setState() because there is no this object. 
+// Additionally, they have no lifecycle methods except for the render() method which will be applied implicitly in functional stateless components. 
+// You didn't learn about lifecycle methods yet, but you already used two: constructor() and render(). 
+// The constructor runs only once in the lifetime of a component, whereas the render() class method runs once in the beginning and every time the component updates. 
+// Keep in mind that functional stateless components have no lifecycle methods, when we arrive at lifecycle methods chapter later.
+
+// ES6 Class Components:
+// extend from the React component. The extend hooks all the lifecycle methods, available in the React component API, to the component. 
+// This is how we were able to use the render() class method. You can also store and manipulate state in ES6 class components using this.state and this.setState().
