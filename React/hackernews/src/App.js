@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+const DEFAULT_QUERY = 'redux';
+const PATH_BASE = 'https://hn.algolia.com/api/v1';
+const PATH_SEARCH = '/search';
+const PARAM_SEARCH = 'query=';
+// ES6
+const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
+// ES5
+// var url = PATH_BASE + PATH_SEARCH + '?' + PARAM_SEARCH + DEFAULT_QUERY;
 // function App() {
 const list = [{
     title: 'React',
@@ -25,17 +32,42 @@ class App extends Component {
     super(props);
     this.state = {
       list,
-      searchTerm: ""
+      result: null,
+      searchTerm: DEFAULT_QUERY
     };
     // bind function
     this.onDismiss = this.onDismiss.bind(this);
     this.onSearchChange = this.onSearchChange.bind(this);
+    this.setSearchTopStories = this.setSearchTopStories.bind(this);
+    this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
   }
+  setSearchTopStories(result) {
+    this.setState({ result });
+  }
+
+  fetchSearchTopStories(searchTerm) {
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+    .then(response => response.json())
+    .then(result => this.setSearchTopStories(result))
+    .catch(e => e);
+  }
+  
+  componentDidMount() {
+    const { searchTerm } = this.state;
+    this.fetchSearchTopStories(searchTerm);
+  }
+  
   onDismiss(id) {
     const isNotId = item => item.objectID !== id;
-    const updatedList = this.state.list.filter(isNotId);
+    // const updatedList = this.state.list.filter(isNotId);
     // set state
-    this.setState({ list: updatedList });
+    const updatedHits = this.state.result.hits.filter(isNotId);
+    // this.setState({ 
+    //   list: updatedList 
+    // });
+    this.setState({ 
+      result: Object.assign({}, this.state.result, { hits: updatedHits })
+    });
   }
   onSearchChange(event){
     this.setState({searchTerm: event.target.value})
@@ -47,8 +79,8 @@ class App extends Component {
     robin.setName("WenJing","Zhang")
     
     // ES6
-    const {list, searchTerm} = this.state;
-
+    const {list, searchTerm, result} = this.state;
+    if (!result)  return null; 
 
     return (
       <div className="App">
@@ -65,7 +97,7 @@ class App extends Component {
             <p>{searchTerm}</p>
           </div>
           <Table 
-            list={list} 
+            list={result.hits} 
             pattern={searchTerm}
             onDismiss={this.onDismiss}
           />
