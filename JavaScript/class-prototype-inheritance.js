@@ -52,3 +52,18 @@ EmployeeP.prototype.employeeInfo = function(){
 
 const mark = new EmployeeP("Mark", 444, 140000)
 console.log(mark.employeeInfo())
+
+//Object prototype
+const PersonO = {
+    init: function(name, id){
+        this.name = name;
+        this.id = id;
+    },
+    getDetails(){
+        return `${this.name}:${this.id}`
+    }
+}
+const wen = Object.create(PersonO)
+
+wen.init("Wen", 555)
+console.log(wen.getDetails(), wen.name)
