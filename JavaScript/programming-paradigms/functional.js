@@ -1,3 +1,10 @@
+// pure function
+// avoid side effects
+
+// Pros: prevent any common state or side effects using the functional model, removing errirs caused byu multiple functions vying for the same resources.
+// Through features such as point-free style flexibility, funcitons appear to be drastically simplified and easily recomposed compared to OOP for more commonly reusable software.
+// Cons: FP has a much steeper learning curve than OOP
+
 const REQUIRED = 'REQUIRED'
 const MIN_LENGTH = 'MIN_LENGTH'
 

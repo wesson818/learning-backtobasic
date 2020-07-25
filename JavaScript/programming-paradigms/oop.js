@@ -1,3 +1,10 @@
+
+// Pros: The basic concept of artifacts can be easily understood and the meaning of method calls can be easily interpreted.
+// OOP perfers to use an imperative style rather than a declarative style that reads for the machine to follow as a simple set of instructions
+
+// Cons: OOP is usually mutual state based. Usually, entites and actions are handled together on the same subject, 
+// which can be arbitranily accessed by any number of non-deterministic functions, which can lead to undesirable behaviurs such as race conditions
+
 class Validator {
     static REQUIRED = 'REQUIRED'
     static MIN_LENGTH = 'MIN_LENGTH'
