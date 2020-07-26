@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import PropTypes from 'prop-types';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 const DEFAULT_QUERY = 'redux';
-const DEFAULT_HPP = '100';
+const DEFAULT_HPP = '5';
 const PATH_BASE = 'https://hn.algolia.com/api/v1';
 const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
@@ -38,7 +42,8 @@ class App extends Component {
       result: null,
       searchKey: '',
       searchTerm: DEFAULT_QUERY,
-      error: null
+      error: null,
+      isLoading: false,
     };
     // bind function
     this.onDismiss = this.onDismiss.bind(this);
@@ -47,9 +52,12 @@ class App extends Component {
     this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
+      
   }
 
+
   fetchSearchTopStories(searchTerm, page=0) {
+    this.setState({ isLoading: true });
     fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
     .then(response => response.json())
     .then(result => this.setSearchTopStories(result))
@@ -72,7 +80,8 @@ class App extends Component {
       results: {
         ...results,
         [searchKey]: { hits: updatedHits, page: page }
-      }
+      },
+      isLoading: false
     });
     // this.setState({ 
     //   result: Object.assign({}, {hits: updatedHits, page: page })
@@ -130,12 +139,12 @@ class App extends Component {
     robin.setName("WenJing","Zhang")
     
     // ES6
-    const {searchTerm, results, searchKey, error} = this.state;
+    const {searchTerm, results, searchKey, error, isLoading} = this.state;
     const page = (results && results[searchKey] && results[searchKey].page) || 0;
     const list = (results && results[searchKey] && results[searchKey].hits) || [];
     // if (error) return <p>Something went wrong.</p>;
     // if (!results) return null; 
-
+    
     return (
       <div className="App">
         <header className="App-header">
@@ -161,40 +170,63 @@ class App extends Component {
             onDismiss={this.onDismiss}
           />}
           <div className="interactions">
-            <button onClick={()=>this.fetchSearchTopStories(searchTerm,page+1)}>More</button>
+            {
+              isLoading
+              ? <Loading />
+              :
+              <Button onClick={()=>this.fetchSearchTopStories(searchTerm,page+1)}>More</Button>
+            }
           </div>
         </header>
       </div>
     );
   }
 }
+const Loading = () => <FontAwesomeIcon className="spinner" icon={faSpinner} />
 
 // ES6 class components
-// class Search extends Component {
-//   render() {
-//     const { value, onChange, children } = this.props;
-//     return (
-//       <form>
-//         {children} <input
+class Search extends Component {
+  componentDidMount() {
+    if(this.input) {
+      this.input.focus();
+    }
+  }
+  render() {
+    const { value, onChange, children, onSubmit  } = this.props;
+    return (
+      <form onSubmit={onSubmit}>
+        {children} <input
+        type="text"
+        value={value}
+        onChange={onChange}
+        ref={(node) => { this.input = node; }}
+        />
+        <button type="submit">{children}</button>
+      </form>
+    );
+  }
+}
+
+// functional stateless components
+// const Search = ({ value, onChange, children, onSubmit }) =>{
+//   let input;
+//   return(
+//     <form onSubmit={onSubmit}>
+//       {children} <input
 //         type="text"
 //         value={value}
 //         onChange={onChange}
-//         />
-//       </form>
-//     );
-//   }
-// }
-
-// functional stateless components
-const Search = ({ value, onChange, children, onSubmit }) =>
-<form onSubmit={onSubmit}>
-  {children} <input
-    type="text"
-    value={value}
-    onChange={onChange}
-  />
-  <button>{children}</button>
-</form>
+//         ref={(node) => input = node}
+//       />
+//       <button type="submit">{children}</button>
+//     </form>
+//   )}
+// Search.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+//   onChange: PropTypes.func.isRequired,
+//   value: PropTypes.string,
+//   children: PropTypes.node.isRequired,
+// };
 
 // ES6 class components
 // class Table extends Component {
@@ -249,6 +281,19 @@ const Table = ({list, onDismiss}) =>
     }
   </div>
 
+Table.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.shape({
+      objectID: PropTypes.string.isRequired,
+      author: PropTypes.string,
+      url: PropTypes.string,
+      num_comments: PropTypes.number,
+      points: PropTypes.number,
+    })
+  ),
+  onDismiss: PropTypes.func.isRequired,
+};
+
 // ES6 class components
 // class Button extends Component {
 //   render(){
@@ -270,6 +315,15 @@ const Button = ({onClick, className='', children}) =>
     onClick={onClick}
     className={className}
   >{children}</button>
+
+  Button.propTypes = {
+    onClick: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    children: PropTypes.node.isRequired,
+  };
+  Button.defaultProps = {
+    className: '',
+  };
 
 class Developer {
   constructor(firstname, lastname) {
