@@ -40,6 +40,7 @@ class App extends Component {
     this.onSearchChange = this.onSearchChange.bind(this);
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
     this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
   }
   setSearchTopStories(result) {
     this.setState({ result });
@@ -50,6 +51,11 @@ class App extends Component {
     .then(response => response.json())
     .then(result => this.setSearchTopStories(result))
     .catch(e => e);
+  }
+
+  onSearchSubmit(){
+    const {searchTerm} = this.state
+    this.fetchSearchTopStories(searchTerm)
   }
   
   componentDidMount() {
@@ -96,11 +102,12 @@ class App extends Component {
             </Search>
             <p>{searchTerm}</p>
           </div>
+          {result &&
           <Table 
             list={result.hits} 
             pattern={searchTerm}
             onDismiss={this.onDismiss}
-          />
+          />}
         </header>
       </div>
     );
