@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 const DEFAULT_QUERY = 'redux';
+const DEFAULT_HPP = '100';
 const PATH_BASE = 'https://hn.algolia.com/api/v1';
 const PATH_SEARCH = '/search';
 const PARAM_SEARCH = 'query=';
+const PARAM_PAGE = 'page=';
+const PARAM_HPP = 'hitsPerPage=';
 // ES6
 const url = `${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${DEFAULT_QUERY}`;
 // ES5
@@ -33,7 +36,9 @@ class App extends Component {
     this.state = {
       list,
       result: null,
-      searchTerm: DEFAULT_QUERY
+      searchKey: '',
+      searchTerm: DEFAULT_QUERY,
+      error: null
     };
     // bind function
     this.onDismiss = this.onDismiss.bind(this);
@@ -41,38 +46,78 @@ class App extends Component {
     this.setSearchTopStories = this.setSearchTopStories.bind(this);
     this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
-  }
-  setSearchTopStories(result) {
-    this.setState({ result });
+    this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
   }
 
-  fetchSearchTopStories(searchTerm) {
-    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}`)
+  fetchSearchTopStories(searchTerm, page=0) {
+    fetch(`${PATH_BASE}${PATH_SEARCH}?${PARAM_SEARCH}${searchTerm}&${PARAM_PAGE}${page}&${PARAM_HPP}${DEFAULT_HPP}`)
     .then(response => response.json())
     .then(result => this.setSearchTopStories(result))
-    .catch(e => e);
+    .catch(e => this.setState({error:e}));
   }
 
-  onSearchSubmit(){
-    const {searchTerm} = this.state
-    this.fetchSearchTopStories(searchTerm)
+  setSearchTopStories(result) {
+    console.log("result:",result)
+    // this.setState({ result });
+    const {hits, page} = result
+    const {searchKey, results} = this.state
+    
+    // const oldHits = page !== 0 ? this.state.result.hits:[]
+    const oldHits = results && results[searchKey] ? results[searchKey].hits:[]
+    const updatedHits = [
+      ...oldHits,
+      ...hits
+    ]
+    this.setState({
+      results: {
+        ...results,
+        [searchKey]: { hits: updatedHits, page: page }
+      }
+    });
+    // this.setState({ 
+    //   result: Object.assign({}, {hits: updatedHits, page: page })
+    // });
   }
-  
+
+  onSearchSubmit(event){
+    const {searchTerm} = this.state
+    this.setState({ searchKey: searchTerm });
+    // this.fetchSearchTopStories(searchTerm)
+
+    if (this.needsToSearchTopStories(searchTerm)) {
+      this.fetchSearchTopStories(searchTerm);
+    }
+
+    event.preventDefault()
+  }
+
+  needsToSearchTopStories(searchTerm) {
+    return !this.state.results[searchTerm];
+  }
+
   componentDidMount() {
     const { searchTerm } = this.state;
+    this.setState({ searchKey: searchTerm });
     this.fetchSearchTopStories(searchTerm);
   }
   
   onDismiss(id) {
+    const { searchKey, results } = this.state;
+    const { hits, page } = results[searchKey];
+
     const isNotId = item => item.objectID !== id;
     // const updatedList = this.state.list.filter(isNotId);
     // set state
-    const updatedHits = this.state.result.hits.filter(isNotId);
+    const updatedHits = hits.filter(isNotId);
     // this.setState({ 
     //   list: updatedList 
     // });
     this.setState({ 
-      result: Object.assign({}, this.state.result, { hits: updatedHits })
+      // result: Object.assign({}, this.state.result, { hits: updatedHits })
+      results: {
+        ...results,
+        [searchKey]: {hits:updatedHits, page:page}
+      }
     });
   }
   onSearchChange(event){
@@ -85,8 +130,11 @@ class App extends Component {
     robin.setName("WenJing","Zhang")
     
     // ES6
-    const {list, searchTerm, result} = this.state;
-    if (!result)  return null; 
+    const {searchTerm, results, searchKey, error} = this.state;
+    const page = (results && results[searchKey] && results[searchKey].page) || 0;
+    const list = (results && results[searchKey] && results[searchKey].hits) || [];
+    // if (error) return <p>Something went wrong.</p>;
+    // if (!results) return null; 
 
     return (
       <div className="App">
@@ -97,17 +145,24 @@ class App extends Component {
             <Search 
               value={searchTerm} 
               onChange={this.onSearchChange} 
+              onSubmit={this.onSearchSubmit}
             >
-              Search:
+              Search
             </Search>
             <p>{searchTerm}</p>
           </div>
-          {result &&
-          <Table 
-            list={result.hits} 
+          {error ?
+          <div className="interactions">
+            <p>Something went wrong.</p>
+        </div>
+          :<Table 
+            list={list} 
             pattern={searchTerm}
             onDismiss={this.onDismiss}
           />}
+          <div className="interactions">
+            <button onClick={()=>this.fetchSearchTopStories(searchTerm,page+1)}>More</button>
+          </div>
         </header>
       </div>
     );
@@ -131,13 +186,14 @@ class App extends Component {
 // }
 
 // functional stateless components
-const Search = ({ value, onChange, children }) =>
-<form>
+const Search = ({ value, onChange, children, onSubmit }) =>
+<form onSubmit={onSubmit}>
   {children} <input
     type="text"
     value={value}
     onChange={onChange}
   />
+  <button>{children}</button>
 </form>
 
 // ES6 class components
@@ -172,10 +228,12 @@ const Search = ({ value, onChange, children }) =>
 // }
 
 // functional stateless components
-const Table = ({list, pattern, onDismiss, isSearched = pattern => item => item.title.toLowerCase().includes(pattern.toLowerCase())}) => 
+// const Table = ({list, pattern, onDismiss, isSearched = pattern => item => item.title.toLowerCase().includes(pattern.toLowerCase())}) => 
+const Table = ({list, onDismiss}) => 
   <div className="table">
     {
-      list.filter(isSearched(pattern)).map((item) => 
+      // list.filter(isSearched(pattern)).map((item) => 
+      list.map((item) =>
         <div className="table-row" key={item.objectID}>
           <span style={{width:'15%'}}>
             <Button onClick={() => onDismiss(item.objectID)}>
