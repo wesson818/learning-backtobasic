@@ -4,6 +4,8 @@ import './App.css';
 import PropTypes from 'prop-types';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { sortBy } from 'lodash';
+import classNames from 'classnames'
 
 const DEFAULT_QUERY = 'redux';
 const DEFAULT_HPP = '5';
@@ -34,6 +36,15 @@ const list = [{
     objectID: 1,
   },
 ];
+
+const SORTS = {
+  NONE: list => list,
+  TITLE: list => sortBy(list, 'title'),
+  AUTHOR: list => sortBy(list, 'author'),
+  COMMENTS: list => sortBy(list, 'num_comments').reverse(),
+  POINTS: list => sortBy(list, 'points').reverse(),
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -44,6 +55,8 @@ class App extends Component {
       searchTerm: DEFAULT_QUERY,
       error: null,
       isLoading: false,
+      // sortKey: 'NONE',
+      // isSortReverse: false,
     };
     // bind function
     this.onDismiss = this.onDismiss.bind(this);
@@ -52,9 +65,13 @@ class App extends Component {
     this.fetchSearchTopStories = this.fetchSearchTopStories.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
     this.needsToSearchTopStories = this.needsToSearchTopStories.bind(this);
-      
+    // this.onSort = this.onSort.bind(this)
   }
 
+  // onSort(sortKey) {
+  //   const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
+  //   this.setState({ sortKey, isSortReverse });
+  // }
 
   fetchSearchTopStories(searchTerm, page=0) {
     this.setState({ isLoading: true });
@@ -68,24 +85,22 @@ class App extends Component {
     console.log("result:",result)
     // this.setState({ result });
     const {hits, page} = result
-    const {searchKey, results} = this.state
-    
-    // const oldHits = page !== 0 ? this.state.result.hits:[]
-    const oldHits = results && results[searchKey] ? results[searchKey].hits:[]
-    const updatedHits = [
-      ...oldHits,
-      ...hits
-    ]
-    this.setState({
-      results: {
-        ...results,
-        [searchKey]: { hits: updatedHits, page: page }
-      },
-      isLoading: false
-    });
-    // this.setState({ 
-    //   result: Object.assign({}, {hits: updatedHits, page: page })
+
+    // const {searchKey, results} = this.state
+    // const oldHits = results && results[searchKey] ? results[searchKey].hits:[]
+    // const updatedHits = [
+    //   ...oldHits,
+    //   ...hits
+    // ]
+    // this.setState({
+    //   results: {
+    //     ...results,
+    //     [searchKey]: { hits: updatedHits, page: page }
+    //   },
+    //   isLoading: false
     // });
+    this.setState(updateSearchTopStoriesState(hits, page));
+    
   }
 
   onSearchSubmit(event){
@@ -139,6 +154,7 @@ class App extends Component {
     robin.setName("WenJing","Zhang")
     
     // ES6
+    // const {searchTerm, results, searchKey, error, isLoading, sortKey, isSortReverse} = this.state;
     const {searchTerm, results, searchKey, error, isLoading} = this.state;
     const page = (results && results[searchKey] && results[searchKey].page) || 0;
     const list = (results && results[searchKey] && results[searchKey].hits) || [];
@@ -166,23 +182,46 @@ class App extends Component {
         </div>
           :<Table 
             list={list} 
-            pattern={searchTerm}
+            // sortKey={sortKey}
+            // isSortReverse={isSortReverse}
+            // onSort={this.onSort}
+            // pattern={searchTerm}
             onDismiss={this.onDismiss}
           />}
           <div className="interactions">
-            {
+            {/* {
               isLoading
               ? <Loading />
               :
               <Button onClick={()=>this.fetchSearchTopStories(searchTerm,page+1)}>More</Button>
-            }
+            } */}
+            <ButtonWithLoading
+              isLoading={isLoading}
+              onClick={() => this.fetchSearchTopStories(searchKey, page+1)}>
+              More
+            </ButtonWithLoading>
           </div>
         </header>
       </div>
     );
   }
 }
-const Loading = () => <FontAwesomeIcon className="spinner" icon={faSpinner} />
+
+const updateSearchTopStoriesState = (hits, page) => (prevState) => {
+  const {searchKey, results} = prevState
+  const oldHits = results && results[searchKey] ? results[searchKey].hits:[]
+  const updatedHits = [
+    ...oldHits,
+    ...hits
+  ]
+  return {
+    results: {
+      ...results,
+      [searchKey]: { hits: updatedHits, page: page }
+    },
+    isLoading: false
+  }
+}
 
 // ES6 class components
 class Search extends Component {
@@ -229,57 +268,152 @@ class Search extends Component {
 // };
 
 // ES6 class components
-// class Table extends Component {
-//   render(){
-//     const {list, pattern, onDismiss} = this.props;
-//     const isSearched = pattern => item =>
-//       item.title.toLowerCase().includes(pattern.toLowerCase());
-//     return(
-//       <div>
-//         {
-//           list.filter(isSearched(pattern)).map((item) => 
-//               <div key={item.objectID}>
-//                 <span><a href="{item.url}">{item.title}</a></span><br />
-//                 <span>creat by {item.author}</span><br />
-//                 <span>{item.num_comments}</span><br />
-//                 <span>{item.points}</span><br />
-//                 <span>
-//                   {/* <button onClick={() => onDismiss(item.objectID)} type="button">
-//                     Dismiss
-//                   </button> */}
-//                   <Button onClick={() => onDismiss(item.objectID)}>
-//                     Dismiss
-//                   </Button>
-//                 </span><br /><br />
-//               </div>
-//             )
-//           }
-//       </div>
-//     )
-//   }
-// }
+class Table extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      sortKey: 'NONE',
+      isSortReverse: false,
+    }
+    this.onSort = this.onSort.bind(this);
+  }
+
+  onSort(sortKey) {
+    const isSortReverse = this.state.sortKey === sortKey && !this.state.isSortReverse;
+    this.setState({ sortKey, isSortReverse });
+  }
+  
+  render(){
+    const {list, onDismiss} = this.props;
+    const {sortKey,isSortReverse} = this.state;
+    const sortedList = SORTS[sortKey](list);
+    const reverseSortedList = isSortReverse
+    ? sortedList.reverse()
+    : sortedList;
+
+    return(
+      <div className="table">
+        <div className="table-header">
+          <span style={{ width: '40%' }}>
+            <Sort
+            sortKey={'TITLE'}
+            onSort={this.onSort}
+            activeSortKey={sortKey}
+            >
+            Title
+            </Sort>
+          </span>
+          <span style={{ width: '25%' }}>
+            <Sort
+            sortKey={'AUTHOR'}
+            onSort={this.onSort}
+            activeSortKey={sortKey}
+            >Author
+            </Sort>
+          </span>
+          <span style={{ width: '10%' }}>
+            <Sort
+            sortKey={'COMMENTS'}
+            onSort={this.onSort}
+            activeSortKey={sortKey}
+            >
+            Comments
+            </Sort>
+          </span>
+          <span style={{ width: '10%' }}>
+            <Sort
+            sortKey={'POINTS'}
+            onSort={this.onSort}
+            activeSortKey={sortKey}
+            >
+            Points
+            </Sort>
+          </span>
+        </div>
+      {
+        reverseSortedList.map(item =>
+          <div className="table-row" key={item.objectID}>
+            <span style={{width:'15%'}}>
+              <Button onClick={() => onDismiss(item.objectID)}>
+                Dismiss
+              </Button>
+            </span>
+            <span style={{width:'40%'}}><a href="{item.url}">{item.title}</a></span>
+            <span style={{width:'25%'}}>creat by {item.author}</span>
+            <span style={{width:'10%'}}>{item.num_comments}</span>
+            <span style={{width:'10%'}}>{item.points}</span>
+          </div>
+        )
+      }
+  </div>
+  )}
+}
 
 // functional stateless components
 // const Table = ({list, pattern, onDismiss, isSearched = pattern => item => item.title.toLowerCase().includes(pattern.toLowerCase())}) => 
-const Table = ({list, onDismiss}) => 
-  <div className="table">
-    {
-      // list.filter(isSearched(pattern)).map((item) => 
-      list.map((item) =>
-        <div className="table-row" key={item.objectID}>
-          <span style={{width:'15%'}}>
-            <Button onClick={() => onDismiss(item.objectID)}>
-              Dismiss
-            </Button>
-          </span>
-          <span style={{width:'40%'}}><a href="{item.url}">{item.title}</a></span><br />
-          <span style={{width:'25%'}}>creat by {item.author}</span><br />
-          <span style={{width:'10%'}}>{item.num_comments}</span><br />
-          <span style={{width:'10%'}}>{item.points}</span><br />
-        </div>
-      )
-    }
-  </div>
+// const Table = ({list, onDismiss, sortKey, onSort, isSortReverse}) => {
+//   const sortedList = SORTS[sortKey](list);
+//   const reverseSortedList = isSortReverse
+//   ? sortedList.reverse()
+//   : sortedList;
+// return(
+//   <div className="table">
+//     <div className="table-header">
+//       <span style={{ width: '40%' }}>
+//         <Sort
+//         sortKey={'TITLE'}
+//         onSort={onSort}
+//         activeSortKey={sortKey}
+//         >
+//         Title
+//         </Sort>
+//       </span>
+//       <span style={{ width: '25%' }}>
+//         <Sort
+//         sortKey={'AUTHOR'}
+//         onSort={onSort}
+//         activeSortKey={sortKey}
+//         >Author
+//         </Sort>
+//       </span>
+//       <span style={{ width: '10%' }}>
+//         <Sort
+//         sortKey={'COMMENTS'}
+//         onSort={onSort}
+//         activeSortKey={sortKey}
+//         >
+//         Comments
+//         </Sort>
+//       </span>
+//       <span style={{ width: '10%' }}>
+//         <Sort
+//         sortKey={'POINTS'}
+//         onSort={onSort}
+//         activeSortKey={sortKey}
+//         >
+//         Points
+//         </Sort>
+//       </span>
+//     </div>
+//     {
+//       // list.filter(isSearched(pattern)).map((item) => 
+//       // list.map((item) =>
+//       reverseSortedList.map(item =>
+//         <div className="table-row" key={item.objectID}>
+//           <span style={{width:'15%'}}>
+//             <Button onClick={() => onDismiss(item.objectID)}>
+//               Dismiss
+//             </Button>
+//           </span>
+//           <span style={{width:'40%'}}><a href="{item.url}">{item.title}</a></span>
+//           <span style={{width:'25%'}}>creat by {item.author}</span>
+//           <span style={{width:'10%'}}>{item.num_comments}</span>
+//           <span style={{width:'10%'}}>{item.points}</span>
+//         </div>
+//       )
+//     }
+//   </div>
+// )}
 
 Table.propTypes = {
   list: PropTypes.arrayOf(
@@ -324,6 +458,39 @@ const Button = ({onClick, className='', children}) =>
   Button.defaultProps = {
     className: '',
   };
+
+  
+const Loading = () => <FontAwesomeIcon className="spinner" icon={faSpinner} />
+
+// ES5
+// function withLoading(Component) {
+//   return function(props) {
+//     return <Component { ...props } />;
+//   }
+// }
+
+// ES6
+const withLoading = (Component) => ({isLoading, ...rest}) =>
+isLoading
+? <Loading />
+: <Component { ...rest } />
+
+const ButtonWithLoading = withLoading(Button);
+
+const Sort = ({ sortKey, onSort, children, activeSortKey }) => {
+  // const sortClass = ['button-inline'];
+  // if (sortKey === activeSortKey) {
+  //   sortClass.push('button-active');
+  // }
+  const sortClass = classNames(
+    'button-inline',
+    {'button-active': sortKey === activeSortKey}
+  )
+  return(
+    <Button onClick={() => onSort(sortKey)} className={sortClass}>
+      {children}
+    </Button>
+)}
 
 class Developer {
   constructor(firstname, lastname) {
