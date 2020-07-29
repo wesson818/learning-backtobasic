@@ -1,0 +1,48 @@
+// variable
+$font-stack: Helvetica,
+sans-serif;
+$primary-color: #333;
+$secondary-color: #fff;
+
+body {
+    font: 100% $font-stack;
+    color: $primary-color;
+}
+
+// mixin
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+div>span {
+    background-color: $primary-color;
+    color: $secondary-color;
+}
+
+nav {
+
+    // nested
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    // include
+    li {
+        @include border-radius(10px);
+    }
+
+    a {
+        display: block;
+        padding: 6px 12px;
+        text-decoration: none;
+    }
+}
+
+input:focus {
+    background-color: $primary-color;
+}
