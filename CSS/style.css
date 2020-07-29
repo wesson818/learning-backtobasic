@@ -1,0 +1,40 @@
+/* Select elements that are direct children of the first element */
+div > span{
+    color: red;
+}
+/* Select elements that are siblings of the first element (li.red) and come after the first element */
+li.red ~ li{
+    color: red;
+}
+/* Select elements that are siblings of the first element and come directly (one after) after the first element */
+li.red + li{
+    color: blue;
+}
+input:focus{
+    background-color: aqua;
+}
+li:nth-child(2n-1){
+    font-weight: bold;
+}
+li:not(.red){
+    background-color: bisque;
+}
+div.red::before{
+    content:'Before';
+    background-color:grey;
+}
+span[data-id="green-text"]{
+    color:green;
+}
+/* Select elements that have that attribute which start with that value */
+[data-id^="gre"]{
+    color:green;
+}
+/* Select elements that have that attribute which end with that value */
+[data-id$="xt"]{
+    background-color: red;
+}
+/* Select elements that have that attribute which contain that value anywhere */
+[data-id*="en"]{
+    font-style:italic
+}
