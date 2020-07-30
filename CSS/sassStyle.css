@@ -15,13 +15,17 @@ nav ul {
 }
 
 nav li {
-  border-radius: 10px;
+  background-color: aqua;
 }
 
 nav a {
   display: block;
   padding: 6px 12px;
   text-decoration: none;
+}
+
+input {
+  border-radius: 20px;
 }
 
 input:focus {

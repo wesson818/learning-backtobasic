@@ -3,6 +3,7 @@ $font-stack: Helvetica,
 sans-serif;
 $primary-color: #333;
 $secondary-color: #fff;
+$other-color: aqua;
 
 body {
     font: 100% $font-stack;
@@ -33,7 +34,7 @@ nav {
 
     // include
     li {
-        @include border-radius(10px);
+        background-color: $other-color;
     }
 
     a {
@@ -42,7 +43,10 @@ nav {
         text-decoration: none;
     }
 }
+input{
+    @include border-radius(20px);
 
-input:focus {
-    background-color: $primary-color;
+    &:focus {
+        background-color: $primary-color;
+    }
 }
