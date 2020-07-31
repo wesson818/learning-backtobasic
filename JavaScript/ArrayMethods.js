@@ -15,6 +15,8 @@ const items = [{
 
 const numbers = [1,2,3,4,5]
 
+const strings = 'Learning JavaScript is fun'
+
 // filter
 const filterResult = items.filter((item) => {
     return item.points <= 3
@@ -50,6 +52,19 @@ items.forEach((item)=>{
 //forEachResult ball
 //forEachResult coin
 //forEachResult candy
+
+// for of loop
+let total = 0
+for (const number of numbers) {
+    total += number
+}
+console.log(`total: ${total}`);
+// total: 15
+
+// string iterator
+for (const char of strings) {
+    console.log(char)
+}
 
 // some
 const someResult = items.some((item)=>{
