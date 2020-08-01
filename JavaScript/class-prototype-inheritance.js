@@ -10,8 +10,8 @@ const PersonC = class {
     }
 }
 
-const jone = new PersonC("John",111)
-console.log(jone.getDetails(),jone.name)
+const john = new PersonC("John",111)
+console.log(john.getDetails(),john.name)
 
 // EmployeeC prototype links to PersonC prototype
 const EmployeeC = class extends PersonC {
