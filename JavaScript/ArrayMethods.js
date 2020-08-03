@@ -1,3 +1,5 @@
+//@ts-check
+
 // JavaScript Array Methods
 const items = [{
         name: 'ball',
