@@ -41,12 +41,6 @@ function totalAge(age1: Age, age2: Age) {
     return age1 + age2;
 }
 
-function add(val1: number, val2: number): number {
-    return val1 + val2;
-}
-
-add(1, 10);
-
 class Person {
     firstName: string;
     middleName: string;
