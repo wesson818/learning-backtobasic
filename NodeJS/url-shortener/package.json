@@ -16,6 +16,7 @@
     "shortid": "^2.2.15"
   },
   "devDependencies": {
-    "nodemon": "^2.0.0"
+    "nodemon": "^2.0.0",
+    "dot-prop": ">=5.1.1"
   }
 }
