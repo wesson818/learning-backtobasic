@@ -1,0 +1,90 @@
+/* css variables */
+:root{
+    --container-max-width: 1200px;
+    --background-color:antiquewhite;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background-color: var(--background-color);
+}
+
+.container{
+    max-width: var(--container-max-width);
+    margin: auto;
+    text-align: center;
+}
+
+header{
+    display: flex;
+    /* grid-template-columns: repeat(4, min-content); */
+    justify-content: space-around;
+    align-items: center;
+}
+header h2, header .links{
+    flex-shrink: 0;
+    margin: 0 10px;
+}
+header ul{
+    list-style: none;
+    display: flex;
+    flex-grow: 1;
+}
+header ul li{
+    margin: 0 10px;
+    text-align: left;
+}
+
+main{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+footer {
+    padding: 16px;
+    
+}
+
+
+header {
+    background: #521751;
+}
+
+aside {
+    background: #fa923f;
+}
+
+footer {
+    background: black;
+}
+
+.foot-list {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+}
+
+.foot-item {
+    margin: 0 10px;
+}
+
+.navigation-item a {
+    text-decoration: none;
+    color: white;
+}
+
+.navigation-item a:hover,
+.navigation-item a:active {
+    color: #fa923f;
+}
+
+@media only screen and (max-width: 600px) {
+    header,main,.foot-list {
+      flex-wrap: wrap;
+    }
+  }
