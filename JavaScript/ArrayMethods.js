@@ -21,7 +21,7 @@ const strings = 'Learning JavaScript is fun'
 
 // filter
 const filterResult = items.filter((item) => {
-    return item.points <= 3
+    return item.points <= 3 && item.points > 2
 })
 console.log("filterResult",filterResult)
 //filterResult [{name: 'ball',points: 2},{name: 'coin',points: 3}]
