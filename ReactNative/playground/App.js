@@ -3,6 +3,7 @@ import {View,StyleSheet,FlatList,Alert} from 'react-native'
 import Header from './components/Header'
 import ListItem from './components/ListItem'
 import AddItem from './components/AddItem'
+// import ListExample from './components/ListExample'
 // import {v4 as uuidv4} from 'uuid'
 
 export default App = () => {
@@ -45,6 +46,7 @@ export default App = () => {
         data={items} 
         renderItem={({item}) => <ListItem item={item} deleteItem={deleteItem} />}
       />
+      {/* <ListExample /> */}
     </View>
   )
 }

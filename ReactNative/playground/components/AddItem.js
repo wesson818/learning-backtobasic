@@ -4,23 +4,18 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome'
 
 export default AddItem = ({addItem}) => {
   const [text, setText] = useState('')
-  const inputRef = useRef()
 
-  // todo: make clear work
-  function clearInput(){
-    inputRef._root.clear();
-  }
   return (
     <View style={styles.header}>
       <TextInput 
-        ref={inputRef}
         placeholder="Add Item..." 
         style={styles.input}  
+        value={text}
         onChangeText={(textValue)=>{setText(textValue)}}
         clearButtonMode="always"
       />
-      <Text>{text}</Text>
-      <TouchableOpacity style={styles.btn} onPress={()=>{clearInput,addItem(text)}}>
+      {/* <Text>{text}</Text> */}
+      <TouchableOpacity style={styles.btn} onPress={()=>{setText('');addItem(text)}}>
         <Text style={styles.btnText}>
            <Icon name="plus" size={20} /> Add Item
         </Text>
