@@ -1,7 +1,11 @@
 // import { Person } from './person.interface';
 import {Person} from './person.model'
 
-const example1: Person = {firstName: 'Dollan', middleName: 'Dollan', lastName: 'Dollan'};
+const example1: Person = {
+    firstName: 'Dollan', 
+    middleName: 'Dollan', 
+    lastName: 'Dollan'
+};
 
 example1.firstName = 'D';
 example1.middleName = 'Coding God';
