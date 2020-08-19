@@ -25,7 +25,7 @@ const numberArray = Object.values(person).filter(val => !isNaN(val) && typeof(va
 console.log('numberArray :', numberArray);
 // numberArray : [ 1, 35, '120000' ]
 
-//turn object to 2D array key value pairs using Object.entries, return new object
+//----------------turn object to 2D array key value pairs using Object.entries, return new object
 console.log("Object.entries(person):",Object.entries(person))
 const newObj = {}
 for(const [key, value] of Object.entries(person)){
@@ -35,6 +35,7 @@ for(const [key, value] of Object.entries(person)){
     }
 }
 console.log('newObj :', newObj);
+//-------------------------------------------------------------------------------------------------
 
 // use console.time and console.timeEnd to tracking run time
 const benchmarkObj = size => {
