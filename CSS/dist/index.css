@@ -1,0 +1,29 @@
+.navbar-links {
+  display: none;
+  width: 100%;
+}
+.navbar-links ul {
+  font-size: 15px;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+.navbar-links li {
+  margin: 0 10px;
+  text-align: center;
+}
+.navbar-links li a {
+  text-decoration: none;
+}
+
+.navbar-links.active {
+  position: absolute;
+  top: 50px;
+  display: flex;
+  background-color: #333;
+}
+.navbar-links.active li {
+  padding: 6px;
+}
