@@ -1,0 +1,15 @@
+<h2>playground works!</h2>
+<p [class.text-danger]="hasError">Hi {{ name.toUpperCase() + ", let's play some coding" }}</p>
+<p [class]="successClass">{{ greetUser() }} - You are here {{siteUrl}}</p>
+<p [ngClass]="messageClasses">Here is an example of class binding</p>
+<p [style.color]="isWarning ? 'orange' : 'blue'">Here is an example of <b>style</b> binding</p>
+<p [style.color]="highlightColor">Here is an example of <b>style</b> binding</p>
+<h3 [ngStyle]="titleStyles">Title multiple style binding</h3>
+<br />
+<input bind-id="myId" type="text" value="{{name}}" [disabled]="isDisabled" />
+<button (click)="onClick($event)">Greet</button>
+{{greetingMessage}}
+<br />
+<br />
+<input #myInput type="text" value="# reference variable" />
+<button (click)="logMessage(myInput.value)">Log</button>
