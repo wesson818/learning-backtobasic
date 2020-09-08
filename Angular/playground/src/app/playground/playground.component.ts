@@ -29,6 +29,12 @@ export class PlaygroundComponent implements OnInit {
 
   public twowaybinding:string = ""
 
+  public displayGreet:boolean = false
+
+  public switchTesting:boolean = false
+
+  public items:string[] = ["red", "blue", "green", "yellow"]
+
   constructor() { }
 
   ngOnInit(): void {

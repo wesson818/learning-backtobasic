@@ -1,5 +1,6 @@
 <h2>playground works!</h2>
-<p [class.text-danger]="hasError">Hi {{ name.toUpperCase() + ", let's play some coding" }}</p>
+<p *ngIf="displayGreet; else elseGreet" [class.text-danger]="hasError">Hi {{ name.toUpperCase() + ", let's play some coding" }}</p>
+<p #elseGreet>This is a else greeting message</p>
 <p [class]="successClass">{{ greetUser() }} - You are here {{siteUrl}}</p>
 <p [ngClass]="messageClasses">Here is an example of class binding</p>
 <p [style.color]="isWarning ? 'orange' : 'blue'">Here is an example of <b>style</b> binding</p>
@@ -16,3 +17,22 @@
 <br />
 <br />
 <input [(ngModel)]="twowaybinding" type="text" /> {{twowaybinding}}
+<br />
+<br />
+<p>Switch example:</p>
+<span [ngSwitch]="switchTesting">
+    <p *ngSwitchCase="true">
+        True
+    </p>
+    <p *ngSwitchCase="false">
+        False
+    </p>
+    <p *ngSwitchDefault>
+        Default
+    </p>
+</span>
+<br />
+<br />
+<div *ngFor="let item of items, let i=index">
+    <p>{{i}} - {{item}}</p>
+</div>
