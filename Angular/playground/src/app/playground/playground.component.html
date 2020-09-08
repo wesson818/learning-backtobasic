@@ -13,3 +13,6 @@
 <br />
 <input #myInput type="text" value="# reference variable" />
 <button (click)="logMessage(myInput.value)">Log</button>
+<br />
+<br />
+<input [(ngModel)]="twowaybinding" type="text" /> {{twowaybinding}}

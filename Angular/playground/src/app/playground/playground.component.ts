@@ -27,6 +27,8 @@ export class PlaygroundComponent implements OnInit {
   }
   public greetingMessage:string = ""
 
+  public twowaybinding:string = ""
+
   constructor() { }
 
   ngOnInit(): void {
