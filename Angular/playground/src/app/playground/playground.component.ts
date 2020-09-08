@@ -33,7 +33,7 @@ export class PlaygroundComponent implements OnInit {
 
   public switchTesting:boolean = false
 
-  public items:string[] = ["red", "blue", "green", "yellow"]
+  public items:string[] = ["red", "blue", "green", "yellow"] 
 
   constructor() { }
 
