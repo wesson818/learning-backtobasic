@@ -36,3 +36,16 @@
 <div *ngFor="let item of items, let i=index">
     <p>{{i}} - {{item}}</p>
 </div>
+<br /><br />
+<p>{{parentData | uppercase }}</p>
+<p>{{parentData | titlecase }}</p>
+
+<button (click)="fireEvent()">Send Event to Parent</button>
+
+<p>{{person | json }}</p>
+<br /><br />
+<b>Pipe only change the data for the view Not value for property</b>
+<p>{{5.678 | number: '1.1-2'}}</p>
+<p>{{0.25 | percent }}</p>
+<p>{{0.25 | currency }}</p>
+<p>{{date | date:'short'}}</p>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-playground',
@@ -35,8 +35,19 @@ export class PlaygroundComponent implements OnInit {
 
   public items:string[] = ["red", "blue", "green", "yellow"] 
 
-  constructor() { }
+  @Input() public parentData:string;
 
+  @Output() public childEvent = new EventEmitter()
+
+  public person:object = {
+    "firstname": "John",
+    "lastname": "Doe"
+  }
+
+  public date = new Date()
+
+  constructor() { }
+ 
   ngOnInit(): void {
   }
 
@@ -51,5 +62,9 @@ export class PlaygroundComponent implements OnInit {
 
   logMessage(value) {
     console.log(value)
+  }
+
+  fireEvent() {
+    this.childEvent.emit("Message from child")
   }
 }
