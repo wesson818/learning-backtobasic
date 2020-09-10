@@ -257,6 +257,9 @@
     width: 1920px;
   }
 
+  nav a.active {
+    color: #39b7f7;
+  }
 
   /* Responsive Styles */
   @media screen and (max-width: 767px) {

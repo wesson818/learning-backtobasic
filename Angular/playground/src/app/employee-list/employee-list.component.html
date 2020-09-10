@@ -1,4 +1,5 @@
 <h3>Employee List</h3>
+<h4>{{errorMsg}}</h4>
 <ul *ngFor="let employee of employees">
-    <li>{{employee.name}}</li>
+    <li (click)="onClick(employee)">{{employee.name}}</li>
 </ul>
