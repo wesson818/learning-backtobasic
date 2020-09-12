@@ -1,0 +1,44 @@
+<h1>{{pageTitle}}</h1>
+
+<div>
+  <img [src]="imgUrl" alt="image" />
+</div>
+
+<div>
+  <button (click)="incrementCount()">+1</button>
+  <span>&nbsp;&nbsp;&nbsp;</span>
+  <button (click)="decrementCount()">-1</button>
+  <br />
+  Counter: {{count}}
+</div>
+
+<br />
+
+<!-- two way binding -->
+<div>
+  <p>Welcome {{name}}</p>
+  <input #nameRef type="text" [(ngModel)]="name" />
+</div>
+
+<!-- split two way binding to property binding and event binding -->
+<div>
+  <p>Typing Wen</p>
+  <input type="text" [ngModel]="username" (ngModelChange)="onChange($event)" />
+  <p>{{message}}</p>
+</div>
+
+<!-- getter and setter -->
+<div>
+  <p>Welcome customer {{customerName}}</p>
+  <input type="text" [(ngModel)]="customerName" />
+</div>
+
+<h2>Parent Component</h2>
+<button (click)="userLoggedIn=true">Login</button>
+<button (click)="userLoggedIn=false">Logout</button>
+<!-- using reference variable to access child component property and function -->
+<app-child (greetEvent)="parentGreet($event)" #child [loggedIn]="userLoggedIn"></app-child>
+<br />
+Name from child: {{child.name}}
+<br />
+<button (click)="child.greeting()">Get Greeting from Child</button>
