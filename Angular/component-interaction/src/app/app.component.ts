@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { ChildComponent } from './child/child.component';
+import { InteractionService } from './interaction.service';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,15 @@ export class AppComponent implements AfterViewInit {
   message: string = "";
   private _customerName: string;
   userLoggedIn: boolean = true;
+
+  constructor(private _interactionService: InteractionService) {}
+
+  greetStudent() {
+    this._interactionService.sendMessage("Good Morning");
+  }
+  appreciateStudent() {
+    this._interactionService.sendMessage("Well Done");
+  }
 
   @ViewChild(ChildComponent) childComponentRef: ChildComponent;
 
