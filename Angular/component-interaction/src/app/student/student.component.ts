@@ -10,15 +10,18 @@ export class StudentComponent implements OnInit {
 
   constructor(private _interactionService: InteractionService) {}
 
+  messageBack: string;
   // component interaction using the service
   ngOnInit(): void {
     this._interactionService.teacherMessage$
       .subscribe(
         message => {
           if (message === "Good Morning") {
-            alert("Good morning teacher");
+            this.messageBack = "Good morning teacher";
+            // alert("Good morning teacher");
           } else if (message === "Well Done") {
-            alert("Thank you teacher");
+            this.messageBack = "Thank you teacher";
+            // alert("Thank you teacher");
           }
         }
       )

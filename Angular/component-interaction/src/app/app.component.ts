@@ -61,19 +61,20 @@ export class AppComponent implements AfterViewInit {
   private _customerName: string;
   userLoggedIn: boolean = true;
 
-  constructor(private _interactionService: InteractionService) {}
+  constructor() {}
+  // constructor(private _interactionService: InteractionService) {}
 
-  greetStudent() {
-    this._interactionService.sendMessage("Good Morning");
-  }
-  appreciateStudent() {
-    this._interactionService.sendMessage("Well Done");
-  }
+  // greetStudent() {
+  //   this._interactionService.sendMessage("Good Morning");
+  // }
+  // appreciateStudent() {
+  //   this._interactionService.sendMessage("Well Done");
+  // }
 
   @ViewChild(ChildComponent) childComponentRef: ChildComponent;
 
   // ViewChild Decorator
-  // 1. create reference variable in html element
+  // 1. create reference variable in html element #nameRef
   // 2. implements AfterViewInit in class
   // 3. attach @ViewChild and create property of type ElementRef
   // 4. defined ngAfterViewInit with your Dom logic

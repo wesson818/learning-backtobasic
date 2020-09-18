@@ -33,6 +33,7 @@
   <input type="text" [(ngModel)]="customerName" />
 </div>
 
+<!-- Parent Component and Child Component Input Output -->
 <h2>Parent Component</h2>
 <button (click)="userLoggedIn=true">Login</button>
 <button (click)="userLoggedIn=false">Logout</button>
@@ -43,8 +44,6 @@ Name from child: {{child.name}}
 <br />
 <button (click)="child.greeting()">Get Greeting from Child</button>
 
-<h2>Teacher</h2>
-<button (click)="greetStudent()">Greet Student</button>
-<button (click)="appreciateStudent()">Appreciate Student</button>
+<h2>Teacher and Student interaction</h2>
 <app-teacher></app-teacher>
 <app-student></app-student>
