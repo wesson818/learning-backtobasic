@@ -10,6 +10,7 @@
   "author": "WenJing Zhang",
   "license": "ISC",
   "dependencies": {
+    "lodash": "^4.17.20",
     "node-fetch": "^2.6.0"
   }
 }
