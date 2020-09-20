@@ -1,6 +1,6 @@
 <h2>playground works!</h2>
-<p *ngIf="displayGreet; else elseGreet" [class.text-danger]="hasError">Hi {{ name.toUpperCase() + ", let's play some coding" }}</p>
-<p #elseGreet>This is a else greeting message</p>
+<!-- <p *ngIf="displayGreet; else elseGreet" [class.text-danger]="hasError">Hi {{ name.toUpperCase() + ", let's play some coding" }}</p> -->
+<!-- <p #elseGreet>This is a else greeting message</p> -->
 <p [class]="successClass">{{ greetUser() }} - You are here {{siteUrl}}</p>
 <p [ngClass]="messageClasses">Here is an example of class binding</p>
 <p [style.color]="isWarning ? 'orange' : 'blue'">Here is an example of <b>style</b> binding</p>

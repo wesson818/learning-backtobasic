@@ -10,6 +10,7 @@ import { EmployeeService } from './employee.service';
 // import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { HooksComponent } from './hooks/hooks.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     // EmployeeListComponent,
     // EmployeeDetailComponent,
     routingComponents,
+    HooksComponent,
   ],
   imports: [
     BrowserModule,

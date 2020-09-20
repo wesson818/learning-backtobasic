@@ -9,4 +9,5 @@ export class AppComponent {
   title = 'playground';
   public valueFromParent = "Data from parent";
   public message = "";
+
 }
