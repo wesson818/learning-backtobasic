@@ -123,3 +123,15 @@ let m = new Manager('Wesson');
 m.delegateWork();
 m.greet();
 console.log(m.firstName)
+
+// object 
+let ninja: {
+    name: string,
+    belt: string,
+    age: number
+}
+ninja = {
+    name: "leo",
+    belt: "black",
+    age: 30
+}
