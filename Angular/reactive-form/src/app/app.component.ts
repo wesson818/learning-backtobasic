@@ -14,12 +14,16 @@ export class AppComponent implements OnInit {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
   
+  // inject FormBuilder service in constructor
   constructor(private fb: FormBuilder, private _registrationService: RegistrationService) {}
 
   registrationForm: FormGroup;
 
+  subscribeChecked: boolean = false;
+
   ngOnInit() {
   
+    // use form build service to create form control model
     this.registrationForm = this.fb.group({
       userName: ['', [Validators.required, Validators.minLength(3), forbiddenNameValidator(/admin/)]],
       email: [''],
@@ -34,6 +38,7 @@ export class AppComponent implements OnInit {
       alternateEmails: this.fb.array([])
     },{validators: passwordValidator})
 
+  // ----- for group class
   // registrationForm = new FormGroup({
   //     userName: new FormControl('Wen'),
   //     password: new FormControl(''),
@@ -46,12 +51,15 @@ export class AppComponent implements OnInit {
   // })
 
   // conditional validation
+  // every form control provide current value as observable through the valueChanges property 
   this.registrationForm.get('subscribe').valueChanges
     .subscribe(checkedValue => {
       const email = this.registrationForm.get('email');
       if(checkedValue) {
+        this.subscribeChecked = true;
         email.setValidators(Validators.required);
       } else {
+        this.subscribeChecked = false;
         email.clearValidators();
       }
       email.updateValueAndValidity();
@@ -80,15 +88,15 @@ export class AppComponent implements OnInit {
     // set some values
     this.registrationForm.patchValue({
       userName: 'Bruce',
-      password: 'test',
-      confirmPassword: 'test',
+      password: '',
+      confirmPassword: '',
       address: {
         city: 'Melbourne',
         state: 'VIC',
         postalCode: '3000'
       }
     })
-    // set all values
+    // must set all values without empty value
     // this.registrationForm.setValue({
     //   userName: 'Bruce',
     //   password: 'test',
