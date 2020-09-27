@@ -1,3 +1,4 @@
+<!-- Part 1: binding -->
 <h1>{{pageTitle}}</h1>
 
 <div>
@@ -5,45 +6,49 @@
 </div>
 
 <div>
+  <h2>Counter</h2>
   <button (click)="incrementCount()">+1</button>
   <span>&nbsp;&nbsp;&nbsp;</span>
   <button (click)="decrementCount()">-1</button>
   <br />
-  Counter: {{count}}
+  Count: {{count}}
 </div>
 
 <br />
 
-<!-- two way binding -->
+<!-- two way binding: require add form module (FormsModule) in module.ts-->
 <div>
   <p>Welcome {{name}}</p>
   <input #nameRef type="text" [(ngModel)]="name" />
 </div>
 
-<!-- split two way binding to property binding and event binding -->
+<!-- for adding more logic in username input, split two way binding to property binding and event binding -->
 <div>
   <p>Typing Wen</p>
-  <input type="text" [ngModel]="username" (ngModelChange)="onChange($event)" />
+  <input type="text" [ngModel]="username" (ngModelChange)="greeting($event)" />
   <p>{{message}}</p>
 </div>
 
-<!-- getter and setter -->
+<!-- using getter and setter to add more logic -->
 <div>
   <p>Welcome customer {{customerName}}</p>
   <input type="text" [(ngModel)]="customerName" />
 </div>
 
-<!-- Parent Component and Child Component Input Output -->
+<!-- Part 2: Parent Component and Child Component Input Output -->
 <h2>Parent Component</h2>
 <button (click)="userLoggedIn=true">Login</button>
 <button (click)="userLoggedIn=false">Logout</button>
 <!-- using reference variable to access child component property and function -->
-<app-child (greetEvent)="parentGreet($event)" #child [loggedIn]="userLoggedIn"></app-child>
+<app-child (greetChild)="parentGreet($event)" #child [loggedIn]="userLoggedIn"></app-child>
 <br />
+<!-- to access child property name -->
 Name from child: {{child.name}}
 <br />
+<!-- to access child function greeting -->
 <button (click)="child.greeting()">Get Greeting from Child</button>
 
+<!-- Part 3: Teacher and Student interaction by interaction service -->
 <h2>Teacher and Student interaction</h2>
 <app-teacher></app-teacher>
 <app-student></app-student>

@@ -59,6 +59,7 @@ export class AppComponent implements AfterViewInit {
   username: string;
   message: string = "";
   private _customerName: string;
+
   userLoggedIn: boolean = true;
 
   constructor() {}
@@ -71,6 +72,7 @@ export class AppComponent implements AfterViewInit {
   //   this._interactionService.sendMessage("Well Done");
   // }
 
+  // can use childComponentRef to access property in child component ChildComponent
   @ViewChild(ChildComponent) childComponentRef: ChildComponent;
 
   // ViewChild Decorator
@@ -98,16 +100,16 @@ export class AppComponent implements AfterViewInit {
   }
 
   incrementCount() {
-    this.count += 1;
+    this.count++;
   }
 
   decrementCount() {
-    this.count -= 1;
+    this.count--;
   }
 
-  onChange(value) {
+  greeting(value) {
     this.username = value;
-    if(value === "Wen") {
+    if(this.username === "Wen") {
       this.message = "Welcome back "+this.username;
     }
   }

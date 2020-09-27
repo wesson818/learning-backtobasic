@@ -15,6 +15,7 @@ import {  Component,
 export class ChildComponent implements OnChanges {
 
   // can using ngOnChanges or getter and setter to interaction with Input values
+  // loggedInFlag is the alisa of loggedIn passed in from parent
   @Input('loggedIn') loggedInFlag:boolean = false;
   message: string;
   name: string = "Wen";
@@ -49,12 +50,12 @@ export class ChildComponent implements OnChanges {
   }
 
   greeting() {
-    alert("Greeting from Child: Hey "+this.name);
+    alert("Call from parent to greeting from Child: Hey "+this.name);
   }
 
-  @Output() greetEvent = new EventEmitter();
+  @Output() greetChild: EventEmitter<any> = new EventEmitter();
   callParentGreet() {
-    this.greetEvent.emit(this.name);
+    this.greetChild.emit(this.name);
   }
 
 }
