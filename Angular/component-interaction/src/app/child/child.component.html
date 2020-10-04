@@ -1,4 +1,21 @@
 <h3>Child Component</h3>
+
+<ng-template #placeholderImgTemplate>
+  <p>This is a placeholder image</p>
+  <img [src]="placeholderImg" alt="placeholder image" />
+</ng-template>
+
+<ng-content select="img" *ngIf="showImg; else placeholderImgTemplate" ></ng-content>
+
+<ng-template>
+    <p>this is a template</p>
+</ng-template>
+
+<ng-container>
+    <p>this is a container</p>
+</ng-container>
+
+<br />
 <!-- <p *ngIf="loggedInFlag">Welcome Back</p> -->
 <!-- <p *ngIf="!loggedInFlag">Please log in</p> -->
 {{message}}

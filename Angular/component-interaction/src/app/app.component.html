@@ -2,7 +2,8 @@
 <h1>{{pageTitle}}</h1>
 
 <div>
-  <img [src]="imgUrl" alt="image" />
+  <img [src]="imgUrl" alt="image" /><br />
+
 </div>
 
 <div>
@@ -40,7 +41,9 @@
 <button (click)="userLoggedIn=true">Login</button>
 <button (click)="userLoggedIn=false">Logout</button>
 <!-- using reference variable to access child component property and function -->
-<app-child (greetChild)="parentGreet($event)" #child [loggedIn]="userLoggedIn"></app-child>
+<app-child (greetChild)="parentGreet($event)" #child [loggedIn]="userLoggedIn">
+  <img [src]="imgUrl" alt="another image" />
+</app-child>
 <br />
 <!-- to access child property name -->
 Name from child: {{child.name}}

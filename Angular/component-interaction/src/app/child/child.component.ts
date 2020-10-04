@@ -20,6 +20,9 @@ export class ChildComponent implements OnChanges {
   message: string;
   name: string = "Wen";
 
+  showImg = false;
+  placeholderImg = "https://via.placeholder.com/150";
+
   // private _loggedIn: boolean;
   // get loggedIn(): boolean {
   //   return this._loggedIn;

@@ -52,8 +52,12 @@ import { InteractionService } from './interaction.service';
 
 
 export class AppComponent implements AfterViewInit {
+
   pageTitle = "Angular Component Interaction";
+
   imgUrl = "https://picsum.photos/200";
+  placeholderImg = "https://via.placeholder.com/150";
+
   count = 0;
   name: string = "Peter";
   username: string;
