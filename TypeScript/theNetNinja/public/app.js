@@ -1,3 +1,12 @@
+// run typescript:
+// tsc -w
+// then Go Live of index.html in public
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 const me = {
     name: 'Shaun',
     age: 30,
@@ -14,6 +23,28 @@ const greetPerson = (person) => {
 };
 greetPerson(me);
 console.log(me);
+import { f, g, sealed } from "./decorators/fg.js";
+let C = class C {
+    constructor(message) {
+        this.greeting = message;
+    }
+    method() {
+        return "Hello, " + this.greeting;
+    }
+};
+__decorate([
+    f(),
+    g()
+], C.prototype, "method", null);
+C = __decorate([
+    sealed
+], C);
+console.log('new C().method()', new C("Wen").method());
+// f(): evaluated
+// g(): evaluated
+// g(): called
+// f(): called
+console.log("-----------Playground End Point-----------------");
 import { Invoice } from './classes/invoice.js';
 import { Payment } from './classes/payment.js';
 import { ListTemplate } from './classes/ListTemplate.js';

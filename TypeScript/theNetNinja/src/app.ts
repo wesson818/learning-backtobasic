@@ -1,3 +1,7 @@
+// run typescript:
+// tsc -w
+// then Go Live of index.html in public
+
 // interface 
 interface IsPerson {
     name: string;
@@ -25,6 +29,32 @@ const greetPerson = (person: IsPerson) => {
 greetPerson(me)
 console.log(me)
 
+import {
+    f,
+    g,
+    sealed
+} from "./decorators/fg.js";
+
+@sealed
+class C {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+    @f()
+    @g()
+    method() {
+        return "Hello, " + this.greeting;
+    }
+}
+
+console.log('new C().method()', new C("Wen").method());
+// f(): evaluated
+// g(): evaluated
+// g(): called
+// f(): called
+
+console.log("-----------Playground End Point-----------------")
 import { Invoice } from './classes/invoice.js'
 import { Payment } from './classes/payment.js'
 import { HasFormatter } from './interfaces/HasFormatter.js'
