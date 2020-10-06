@@ -29,10 +29,12 @@ const greetPerson = (person: IsPerson) => {
 greetPerson(me)
 console.log(me)
 
+console.log('--------Class Decorators--------')
 import {
     f,
     g,
-    sealed
+    sealed,
+    classDecorator
 } from "./decorators/fg.js";
 
 @sealed
@@ -53,6 +55,17 @@ console.log('new C().method()', new C("Wen").method());
 // g(): evaluated
 // g(): called
 // f(): called
+
+@classDecorator
+class Greeter {
+  property = "property";
+  hello: string;
+  constructor(m: string) {
+    this.hello = m;
+  }
+}
+
+console.log(new Greeter("world"));
 
 console.log("-----------Playground End Point-----------------")
 import { Invoice } from './classes/invoice.js'

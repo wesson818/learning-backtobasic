@@ -23,7 +23,8 @@ const greetPerson = (person) => {
 };
 greetPerson(me);
 console.log(me);
-import { f, g, sealed } from "./decorators/fg.js";
+console.log('--------Class Decorators--------');
+import { f, g, sealed, classDecorator } from "./decorators/fg.js";
 let C = class C {
     constructor(message) {
         this.greeting = message;
@@ -44,6 +45,16 @@ console.log('new C().method()', new C("Wen").method());
 // g(): evaluated
 // g(): called
 // f(): called
+let Greeter = class Greeter {
+    constructor(m) {
+        this.property = "property";
+        this.hello = m;
+    }
+};
+Greeter = __decorate([
+    classDecorator
+], Greeter);
+console.log(new Greeter("world"));
 console.log("-----------Playground End Point-----------------");
 import { Invoice } from './classes/invoice.js';
 import { Payment } from './classes/payment.js';

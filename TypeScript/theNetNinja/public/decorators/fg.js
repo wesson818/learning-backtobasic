@@ -14,3 +14,12 @@ export function sealed(constructor) {
     Object.seal(constructor);
     Object.seal(constructor.prototype);
 }
+export function classDecorator(constructor) {
+    return class extends constructor {
+        constructor() {
+            super(...arguments);
+            this.newProperty = "new property";
+            this.hello = "override";
+        }
+    };
+}
