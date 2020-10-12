@@ -1,9 +1,21 @@
+// Note: rest operator is in function declaration, but spread operator is specify in function call
 // rest operator
 function add(...numbers){
-    console.log(numbers)
+    let total = numbers.reduce((currentTotal,num)=>{
+        return currentTotal+num
+    },0);
+
+    console.log(total)
 }
 
+add(4,5)
+
 add(4,5,6,7,8,10)
+
+let arr = [2,3,5];
+add(arr)
+// spread operator: see difference add(arr) and add(...arr)
+add(...arr)
 
 // spread operator
 
