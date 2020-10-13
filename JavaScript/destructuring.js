@@ -16,7 +16,11 @@ let names = ['Dylan', 'Coding God', 'Israel']
 
 let [firstName, middleName, lastName] = names
 
-console.log(middleName)
+console.log('middleName',middleName)
+
+let [element, ...elements] = names
+
+console.log('...elements',...elements)
 
 // function
 function addressMaker({city,state}) {

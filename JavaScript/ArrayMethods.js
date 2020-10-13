@@ -55,6 +55,11 @@ items.forEach((item)=>{
 //forEachResult coin
 //forEachResult candy
 
+// for in loop
+for (let index in numbers) {
+    console.log("for in loop:",numbers[index])
+}
+
 // for of loop
 let total = 0
 for (const number of numbers) {
