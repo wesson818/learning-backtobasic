@@ -204,4 +204,6 @@ console.log('ids', ids)
 var contacts = _.union(ids)
 console.log('contacts', contacts)
 
-
+//_.isArray(obj) test object is array
+var obj = [{a:"e"},"a","1","aa4"]
+console.log(_.isArray(obj))
