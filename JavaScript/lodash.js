@@ -195,3 +195,13 @@ var result = _.sortedUniq(sortedArray);
 console.log('result', result)
 // -> [1, 2, 3, 5, 8]
 
+// _.concat(array, [values]): Creates a new array concatenating array with any additional arrays and/or values.
+var ids = []
+ids = _.concat(ids, [1,2,3,4,5,5,5,5]);
+ids = _.concat(ids, [5,5,5,6,8,9]);
+console.log('ids', ids)
+// _.union([arrays]): Creates an array of unique values, in order, from all given arrays using SameValueZero for equality comparisons.
+var contacts = _.union(ids)
+console.log('contacts', contacts)
+
+
