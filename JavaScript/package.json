@@ -11,8 +11,12 @@
   "license": "ISC",
   "dependencies": {
     "es6-module-loader": "^0.17.11",
+    "js-jsonq": "^1.0.3",
+    "json-query-matcher": "^1.0.2",
     "lodash": "^4.17.20",
+    "mongo-query": "^0.5.7",
     "node-fetch": "^2.6.0",
+    "queryl": "^1.1.0",
     "systemjs": "^6.7.1",
     "traceur": "0.0.111"
   }
