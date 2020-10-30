@@ -1,5 +1,6 @@
 // https://github.com/me-shaon/js-jsonq
 const jsonQ = require('js-jsonq');
+var _ = require('lodash');
 
 // sample Json data
 const JsonObject = {
@@ -51,8 +52,7 @@ let obj = {
         '1603669177323': '2020-10-28T00:00:00.000Z',
         '1603669156267': 'testing 123\nnewline 456',
         '1603670049058': [
-            's3',
-            's1'
+            's3'
         ],
         '1603669895926': 'A',
         '1603669830585': 'Male',
@@ -61,14 +61,38 @@ let obj = {
         '1603784666647': 'Wen'
     }]
 }
-p = new jsonQ(obj);
-result = p.from('post').where('1603784666647','eq','wen')
-                        .orWhere('1603162083623','contains','@gmail.com')
-                        .orWhere('1603667333477', 'startswith', '041')
-                        .orWhere('1603669156267', 'neq', '')
-                        .orWhere('1603669895926', 'eq', 'A')
-                        // .orWhere('1603670049058', 'in', ['s1','s3']) // not working
-                        .orWhere('1603670049058', 'contains', 's1')
-                        .orWhere('1603670049058', 'contains', 's3')
-                        .fetch();
-console.log(result);
+// let join = "or";
+let join = "and";
+let valid = false;
+let conditions = [
+                    ['1603784666647','eq','wen'],
+                    ['1603162083623','contains','@gmail.com'],
+                    ['1603667333477', 'startswith', '04']
+                ]
+let results = [];
+_.forEach(conditions, condition => {
+    p = new jsonQ(obj);
+    console.log('condition', condition)
+    result = p.from('post').where(condition[0],condition[1],condition[2]).count();
+    console.log('result', result)
+    results.push(result);
+})
+results = _.uniq(results)
+console.log('results', results)
+if(join === "or"){
+    valid = _.includes(results,1);
+} else {
+    valid = !_.includes(results,0);
+}
+console.log('valid', valid)
+// result = p.from('post')
+                        // .where(condition[0],condition[1],condition[2])
+                        // .orWhere('1603162083623','contains','@gmail.com')
+                        // .orWhere('1603667333477', 'startswith', '041')
+                        // .orWhere('1603669156267', 'neq', '')
+                        // .orWhere('1603669895926', 'eq', 'A')
+                        // .where('1603670049058', 'in', ['s1','s3']) // not working
+                        // .orWhere('1603670049058', 'contains', 's1')
+                        // .orWhere('1603670049058', 'contains', 's3')
+                        // .count();
+// console.log(result);
