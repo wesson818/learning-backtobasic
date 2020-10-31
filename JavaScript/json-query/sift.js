@@ -25,7 +25,7 @@ const post = [{
     '1603162083623': 'wen@gmail.com',
     '1603784666647': 'Wen',
     '1604013599273': '12:56',
-    '1604013595734': '2020-10-24T00:00:00.000Z',
+    '1604013595734': '2020-10-30T00:00:00.000Z',
     '1604013564441': '1998-11-05T00:00:00.000Z'
 }]
 query = {'1603784666647': { "$eq": "Wen" }}
@@ -74,12 +74,13 @@ query = {"$where":"this[1604013564441] != null && new Date(new Date(this[1604013
 // RANGE_NUM_OF_YEARS
 ltData = [0,2]
 query = {"$where":'this[1604013595734] != null && ' + ltData[0] + ' <= (new Date() <= new Date(this[1604013595734]) ? 0 : Math.floor((new Date() - new Date(this[1604013595734]))/(1000*60*60*24*365))) && (new Date() <= new Date(this[1604013595734]) ? 0 : Math.floor((new Date() - new Date(this[1604013595734]))/(1000*60*60*24*365))) <= ' + ltData[1]};
+query = {"$where":'this[1604013595734] != null && (new Date("' + getDate("year", "end", ltData[1]) + '") <= new Date(this[1604013595734])) && (new Date(this[1604013595734]) <= new Date("' + getDate("year", "start", ltData[0]) + '"))'};
 // RANGE_NUM_OF_MONTHS
-query = {"$where":'this[1604013595734] != null && (new Date("' + getDate("month", "end", ltData[1]) + '") <= new Date(this[1604013595734])) && (new Date(this[1604013595734]) <= new Date("' + getDate("month", "start", ltData[0]) + '"))'};
+// query = {"$where":'this[1604013595734] != null && (new Date("' + getDate("month", "end", ltData[1]) + '") <= new Date(this[1604013595734])) && (new Date(this[1604013595734]) <= new Date("' + getDate("month", "start", ltData[0]) + '"))'};
 // RANGE_NUM_OF_WEEKS
-query = {"$where":'this[1604013595734] != null && (new Date("' + getDate("week", "end", ltData[1]) + '") <= new Date(this[1604013595734])) && (new Date(this[1604013595734]) <= new Date("' + getDate("week", "start", ltData[0]) + '"))'};
+// query = {"$where":'this[1604013595734] != null && (new Date("' + getDate("week", "end", ltData[1]) + '") <= new Date(this[1604013595734])) && (new Date(this[1604013595734]) <= new Date("' + getDate("week", "start", ltData[0]) + '"))'};
 // RANGE_NUM_OF_DAYS
-query = {"$where":'this[1604013595734] != null && (new Date("' + getDate("day", "end", ltData[1]) + '") <= new Date(this[1604013595734])) && (new Date(this[1604013595734]) <= new Date("' + getDate("day", "start", ltData[0]) + '"))'};
+// query = {"$where":'this[1604013595734] != null && (new Date("' + getDate("day", "end", ltData[1]) + '") <= new Date(this[1604013595734])) && (new Date(this[1604013595734]) <= new Date("' + getDate("day", "start", ltData[0]) + '"))'};
 
 result = post.filter(sift(query))
 console.log('Date', new Date(post[0][1604013595734]))
@@ -96,19 +97,19 @@ function getDate(timeType, startOrEnd, addValue) {
         date.add(-addValue, timeType).endOf(timeType);
     }
 
-    return date.format("YYYY-MM-DDTHH:mm:ss");
+    return date.format("YYYY-MM-DD");
     // return date.toDate();
 }
 let fromDate, endDate;
 let range = [0,2];
-// fromDate = getDate("year","start",range[0]);
-// endDate = getDate("year","end",range[1]);
+fromDate = getDate("year","start",range[0]);
+endDate = getDate("year","end",range[1]);
 // fromDate = getDate("month","start",range[0]);
 // endDate = getDate("month","end",range[1]);
 // fromDate = getDate("week","start",range[0]);
 // endDate = getDate("week","end",range[1]);
-fromDate = getDate("day","start",range[0]);
-endDate = getDate("day","end",range[1]);
+// fromDate = getDate("day","start",range[0]);
+// endDate = getDate("day","end",range[1]);
 console.log('fromDate', fromDate)
 console.log('endDate', endDate)
 console.log('fromDate', new Date(fromDate))
