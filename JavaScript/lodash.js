@@ -203,6 +203,9 @@ console.log('ids', ids)
 // _.union([arrays]): Creates an array of unique values, in order, from all given arrays using SameValueZero for equality comparisons.
 var contacts = _.union(ids)
 console.log('contacts', contacts)
+console.log('contacts.ids', contacts.ids)
+contacts.ids = _.union(contacts.ids,ids)
+console.log('contacts.ids', contacts.ids)
 
 //_.isArray(obj) test object is array
 var obj = [{a:"e"},"a","1","aa4"]

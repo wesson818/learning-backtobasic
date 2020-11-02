@@ -13,7 +13,7 @@ let query, result;
 const post = [{
     datetime: '2020-10-30T00:00:00.000Z',
     'datetime_1603669177323': '2020-10-30T00:00:00.000Z',
-    '1603669177323': '2020-10-31T00:00:00.000Z',
+    '1603669177323': '2020-10-26T00:00:00.000Z',
     '1603669156267': 'testing 123\nnewline 456',
     '1603670049058': [
         's3',
@@ -25,7 +25,7 @@ const post = [{
     '1603162083623': 'wen@gmail.com',
     '1603784666647': 'Wen',
     '1604013599273': '12:56',
-    '1604013595734': '2020-10-30T00:00:00.000Z',
+    '1604013595734': '2020-10-26T00:00:00.000Z',
     '1604013564441': '1998-11-05T00:00:00.000Z'
 }]
 query = {'1603784666647': { "$eq": "Wen" }}
@@ -81,7 +81,10 @@ query = {"$where":'this[1604013595734] != null && (new Date("' + getDate("year",
 // query = {"$where":'this[1604013595734] != null && (new Date("' + getDate("week", "end", ltData[1]) + '") <= new Date(this[1604013595734])) && (new Date(this[1604013595734]) <= new Date("' + getDate("week", "start", ltData[0]) + '"))'};
 // RANGE_NUM_OF_DAYS
 // query = {"$where":'this[1604013595734] != null && (new Date("' + getDate("day", "end", ltData[1]) + '") <= new Date(this[1604013595734])) && (new Date(this[1604013595734]) <= new Date("' + getDate("day", "start", ltData[0]) + '"))'};
-
+// was7DaysAgo
+query = { '$or': [ { '$where': 'this[1604013595734] != null && new Date(this[1604013595734]).setHours(0,0,0,0) == new Date().setHours(0,0,0,0) - 7*86400000' } ] };
+// wasXDaysAgo x==1
+query = {"$or":[{"$where":"this[1604013595734] != null && new Date(this[1604013595734]).setHours(0,0,0,0) == new Date().setHours(0,0,0,0) - 1*86400000"}]}
 result = post.filter(sift(query))
 console.log('Date', new Date(post[0][1604013595734]))
 console.log('result', result)
