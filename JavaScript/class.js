@@ -43,3 +43,8 @@ p2.distance;    // undefined
 
 console.log(Point.displayName);      // "Point"
 console.log(Point.distance(p1, p2)); // 7.0710678118654755
+
+
+// public
+// private
+// protected
