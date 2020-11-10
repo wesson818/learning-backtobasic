@@ -25,6 +25,7 @@ const post = [{
     '1603162083623': 'wen@gmail.com',
     '1603784666647': 'Wen',
     '1604013599273': '12:56',
+    '1604907680495': [ 'Friday','bb', 'Sunday', 'aa' ],
     '1604013595734': '2020-10-26T00:00:00.000Z',
     '1604013564441': '1998-11-05T00:00:00.000Z'
 }]
@@ -85,6 +86,15 @@ query = {"$where":'this[1604013595734] != null && (new Date("' + getDate("year",
 query = { '$or': [ { '$where': 'this[1604013595734] != null && new Date(this[1604013595734]).setHours(0,0,0,0) == new Date().setHours(0,0,0,0) - 7*86400000' } ] };
 // wasXDaysAgo x==1
 query = {"$or":[{"$where":"this[1604013595734] != null && new Date(this[1604013595734]).setHours(0,0,0,0) == new Date().setHours(0,0,0,0) - 1*86400000"}]}
+// eq MULTI
+query = {"$or":[{"1604907680495":{"$eq":["Friday", "Sunday"]}}]}
+query = {"$or":[{"1604907680495":{"$eq":["Sunday", "Friday" ]}}]}
+query = {"$or":[{"1604907680495":{"$size":2,"$all":["Sunday", "Friday"]}}]}
+// not eq MULTI
+// query = {"$or":[{"1604907680495":{"$not":{"$eq":["Friday", "Sunday"]}}}]}
+// not empty MULTI
+query = {"$or":[{"1604907680495":{"$exists":true,"$ne":[]}}]}
+
 result = post.filter(sift(query))
 console.log('Date', new Date(post[0][1604013595734]))
 console.log('result', result)
