@@ -210,3 +210,25 @@ console.log('contacts.ids', contacts.ids)
 //_.isArray(obj) test object is array
 var obj = [{a:"e"},"a","1","aa4"]
 console.log(_.isArray(obj))
+
+// _.isEmpty checks if value is an empty object, collection, map, or set.
+console.log('_.isEmpty(null)', _.isEmpty(null))
+// => true
+
+console.log('_.isEmpty(undefined)', _.isEmpty(undefined))
+// => true
+ 
+console.log('_.isEmpty(true)', _.isEmpty(true))
+// => true
+ 
+console.log('_.isEmpty(1)', _.isEmpty(1))
+// => true
+
+console.log('_.isEmpty("string value")', _.isEmpty("string value"))
+// => false
+ 
+console.log('_.isEmpty([1, 2, 3])', _.isEmpty([1, 2, 3]))
+// => false
+
+console.log('_.isEmpty({ \'a\': 1 })', _.isEmpty({ 'a': 1 }))
+// => false
