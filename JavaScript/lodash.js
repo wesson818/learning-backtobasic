@@ -224,6 +224,9 @@ console.log('_.isEmpty(true)', _.isEmpty(true))
 console.log('_.isEmpty(1)', _.isEmpty(1))
 // => true
 
+console.log('_.isEmpty({})', _.isEmpty({}))
+// => true
+
 console.log('_.isEmpty("string value")', _.isEmpty("string value"))
 // => false
  
@@ -232,3 +235,15 @@ console.log('_.isEmpty([1, 2, 3])', _.isEmpty([1, 2, 3]))
 
 console.log('_.isEmpty({ \'a\': 1 })', _.isEmpty({ 'a': 1 }))
 // => false
+
+console.log('_.split(\'a-b-c\', \'-\')', _.split('a-b-c', '-'))
+// => ['a', 'b', 'c']
+
+console.log('_.split(\'a-b-c\', \'-\', 2)', _.split('a-b-c', '-', 2))
+// => ['a', 'b']
+
+console.log('_.split(\'a-b-c\', \'-\', 1)', _.split('a-b-c', '-', 1))
+// => ['a']
+
+console.log('_.split(\'a-b-c\', \'-\')[0]', _.split('a-b-c', '-')[0])
+// => 'a'
