@@ -30,7 +30,9 @@ const post = [{
     '1604013564441': '1998-11-05T00:00:00.000Z'
 }]
 query = {'1603784666647': { "$eq": "Wen" }}
-query = {'1603162083623': { "$in": ["@m.com"] }}
+query = {'1603162083623': { "$in": ["wen@gmail.com","wen@hotmail.com"] }}
+result = post.filter(sift(query))
+// $in is exactly match from array value
 query = {"$or":[{ "1603784666647": { "$eq": "wen" } },{'1603667333477': { "$in": ["0422565666"] }}]} 
 query = {'1603667333477': { $regex: "^04" }}
 query = {
@@ -95,7 +97,6 @@ query = {"$or":[{"1604907680495":{"$size":2,"$all":["Sunday", "Friday"]}}]}
 // not empty MULTI
 query = {"$or":[{"1604907680495":{"$exists":true,"$ne":[]}}]}
 
-result = post.filter(sift(query))
 console.log('Date', new Date(post[0][1604013595734]))
 console.log('result', result)
 console.log('found results:', !!result.length)
