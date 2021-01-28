@@ -10,6 +10,7 @@
   "author": "WenJing Zhang",
   "license": "ISC",
   "dependencies": {
+    "crypto-js": "^4.0.0",
     "cryptojs": "^2.5.3",
     "es6-module-loader": "^0.17.11",
     "js-jsonq": "^1.0.3",
