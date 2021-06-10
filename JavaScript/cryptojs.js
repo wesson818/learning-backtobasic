@@ -19,3 +19,15 @@ console.log('encryptedString', encryptedString)
 
 let decryptedString = decryptAES(encryptedString,aSecret)
 console.log('decryptedString', decryptedString)
+
+
+var tokenString = "application/json\r\n"+
+                   "purpleportal.net\r\n"+
+                   "/api/company/v1/venues\r\n"+
+                   "Tue, 11 May 2021 03:17:25 UTC\r\n\r\n";
+/* tokenString = "application/json purpleportal.net /api/company/v1/venues Mon, 10 May 2021 07:22:41 UTC"; */
+var hash = CryptoJS.HmacSHA256(tokenString, "f2649676d7f7e4e8cca56ff608a97ca7");
+var hashInBase64 = CryptoJS.enc.Base64.stringify(hash);
+/* var hashInBase64 = hash.toString(CryptoJS.enc.Base64); */
+console.log('hash', hash)
+console.log('hashInBase64', hashInBase64)
