@@ -2,33 +2,33 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { ApolloClient, ApolloProvider, InMemoryCache, gql } from '@apollo/client';
+// import { ApolloClient, ApolloProvider, InMemoryCache, gql } from '@apollo/client';
 
-const client = new ApolloClient({
-  uri: 'http://localhost:5000/graphql?',
-  cache: new InMemoryCache()
-});
+// const client = new ApolloClient({
+//   uri: 'http://localhost:5000/graphql?',
+//   cache: new InMemoryCache()
+// });
 
-client
-  .query({
-    query: gql`
-    query {
-      books{
-        name
-        author {
-          name
-        }
-      }
-    }
-    `
-  })
-  .then(result => console.log("result",result));
+// client
+//   .query({
+//     query: gql`
+//     query {
+//       books{
+//         name
+//         author {
+//           name
+//         }
+//       }
+//     }
+//     `
+//   })
+//   .then(result => console.log("result",result));
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
+    {/* <ApolloProvider client={client}> */}
       <App />
-    </ApolloProvider>
+    {/* </ApolloProvider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
