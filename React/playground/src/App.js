@@ -7,7 +7,7 @@ import { ThemeProvider } from './components/ThemeContext'
 import useLocalStorage from './components/useLocalStorage'
 import useUpdateLogger from './components/useUpdateLogger'
 
-import Hello from './components/Hello'
+// import Hello from './components/Hello'
 import Welcome from './components/Welcome'
 import Message from './components/Message'
 import Counter from './components/Counter'
