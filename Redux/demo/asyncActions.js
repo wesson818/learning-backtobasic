@@ -5,6 +5,7 @@ const axios = require('axios');
 const createStore = redux.createStore;
 const applyMiddleware = redux.applyMiddleware;
 
+// state
 const initialState = {
     loading: false,
     users: [],
