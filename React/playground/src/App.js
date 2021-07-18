@@ -23,6 +23,17 @@ import NameList from './components/NameList'
 import Form from './components/Form'
 
 import LifecycA from './components/LifecycA'
+import ForwardRefParentInput from './components/ForwardRefParentInput'
+import PortalDemo from './components/PortalDemo'
+import Hero from './components/Hero'
+import ErrorBoundary from './components/ErrorBoundary'
+import ClickCounter from './components/ClickCounter'
+import HoverCounter from './components/HoverCounter'
+import ClickCounterTwo from './components/ClickCounterTwo'
+import HoverCounterTwo from './components/HoverCounterTwo'
+import CounterTwo from './components/CounterTwo'
+import { UserProvider } from './components/UserContext'
+import ChildComponent from './components/ChildComponent'
 
 // import { useQuery, gql } from '@apollo/client';
 
@@ -86,6 +97,33 @@ export default function App () {
 
   return (
     <div className="App-header">
+      <PortalDemo />
+      <ClickCounter name="button: " />
+      <HoverCounter />
+      {/* <ClickCounterTwo />
+      <HoverCounterTwo /> */}
+      {/* Render Props */}
+      <CounterTwo>
+        {(count, incrementCount) => (
+          <ClickCounterTwo count={count} incrementCount={incrementCount} />
+        )}
+      </CounterTwo>
+      <CounterTwo>
+        {(count, incrementCount) => (
+          <HoverCounterTwo count={count} incrementCount={incrementCount} />
+        )}
+      </CounterTwo>
+      <ErrorBoundary>
+        <Hero heroName="Batman" />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Hero heroName="Superman" />
+      </ErrorBoundary>
+
+      {/* <ErrorBoundary>
+        <Hero heroName="Joker" />
+      </ErrorBoundary> */}
+
       {/* <Hello name="Jack" heroName="Superman">
         <p>this is child block</p>
       </Hello> */}
@@ -95,6 +133,9 @@ export default function App () {
       {/* <UserGreeting /> */}
       {/* <EventBind /> */}
       <ParentComponent />
+      <UserProvider value="Vishwas">
+        <ChildComponent />
+      </UserProvider>
       {/* <FunctionClick /> */}
       {/* <ClassClick /> */}
       {/* <Counter /> */}
@@ -104,6 +145,7 @@ export default function App () {
       {/* <Form /> */}
       {/* <LifecycA /> */}
       <br />
+      <ForwardRefParentInput />
       <input ref={inputRef} value={name} onChange={e=>setName(e.target.value)} />
       <div>My name is {name} and it used to be {prevName.current}</div>
       <div>I rendered {renderCount.current} times</div>

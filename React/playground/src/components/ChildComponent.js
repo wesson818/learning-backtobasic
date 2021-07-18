@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { Component } from 'react'
+import { UserConsumer } from './UserContext'
 
-function ChildComponent(props) {
-    console.log('ChildComponent render')
-    return (
-        <div>
-            {props.name}
-            <button onClick={() => props.greetHandler("child")}>Greet Parent</button>
-        </div>
-    )
+class ChildComponent extends Component {
+    render() {
+        return (
+            // <UserConsumer>
+            //     {
+            //         username => {
+            //         return (
+                        <div>
+                            {this.props.name}
+                            {/* {username} */}
+                            <button onClick={() => this.props.greetHandler("child")}>Greet Parent</button>
+                        </div>
+            //         )}
+            //     }
+            // </UserConsumer>
+        )
+    }
 }
 
 export default ChildComponent
