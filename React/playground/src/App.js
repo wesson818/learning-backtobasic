@@ -34,6 +34,10 @@ import HoverCounterTwo from './components/HoverCounterTwo'
 import CounterTwo from './components/CounterTwo'
 import { UserProvider } from './components/UserContext'
 import ChildComponent from './components/ChildComponent'
+import HookCounter from './components/HookCounter'
+import ClassCounterOne from './components/ClassCounterOne'
+import HookCounterOne from './components/HookCounterOne'
+import HookMouse from './components/HookMouse'
 
 // import { useQuery, gql } from '@apollo/client';
 
@@ -98,6 +102,7 @@ export default function App () {
   return (
     <div className="App-header">
       <PortalDemo />
+      <HookMouse />
       <ClickCounter name="button: " />
       <HoverCounter />
       {/* <ClickCounterTwo />
@@ -113,6 +118,9 @@ export default function App () {
           <HoverCounterTwo count={count} incrementCount={incrementCount} />
         )}
       </CounterTwo>
+      <ClassCounterOne />
+      <HookCounterOne />
+      <HookCounter />
       <ErrorBoundary>
         <Hero heroName="Batman" />
       </ErrorBoundary>
@@ -163,7 +171,7 @@ export default function App () {
       <p>useLocalStorage hook</p>
       <input type="text" value={lsData} onChange={(e)=>setLSDate(e.target.value)} />
       <br /><br /><br />
-      <p>GraphQL example:</p>
+      {/* <p>GraphQL example:</p> */}
       {/* <button onClick={getBooks}>get books</button> */}
       {/* {booksInformation} */}
 
