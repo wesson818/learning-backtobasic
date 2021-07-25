@@ -32,12 +32,17 @@ import HoverCounter from './components/HoverCounter'
 import ClickCounterTwo from './components/ClickCounterTwo'
 import HoverCounterTwo from './components/HoverCounterTwo'
 import CounterTwo from './components/CounterTwo'
+// context
 import { UserProvider } from './components/UserContext'
 import ChildComponent from './components/ChildComponent'
 import HookCounter from './components/HookCounter'
 import ClassCounterOne from './components/ClassCounterOne'
 import HookCounterOne from './components/HookCounterOne'
 import HookMouse from './components/HookMouse'
+import HookMouseContainer from './components/HookMouseContainer'
+import FragmentDemo from './components/FragmentDemo'
+import HookTimer from './components/HookTimer'
+import CounterOne from './components/CounterOne'
 
 // import { useQuery, gql } from '@apollo/client';
 
@@ -102,12 +107,15 @@ export default function App () {
   return (
     <div className="App-header">
       <PortalDemo />
-      <HookMouse />
+      <HookTimer />
+      {/* <HookMouse /> */}
+      <HookMouseContainer />
       <ClickCounter name="button: " />
       <HoverCounter />
       {/* <ClickCounterTwo />
       <HoverCounterTwo /> */}
       {/* Render Props */}
+      <CounterOne />
       <CounterTwo>
         {(count, incrementCount) => (
           <ClickCounterTwo count={count} incrementCount={incrementCount} />
@@ -131,7 +139,7 @@ export default function App () {
       {/* <ErrorBoundary>
         <Hero heroName="Joker" />
       </ErrorBoundary> */}
-
+      <FragmentDemo />
       {/* <Hello name="Jack" heroName="Superman">
         <p>this is child block</p>
       </Hello> */}

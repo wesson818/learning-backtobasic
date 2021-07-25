@@ -4,7 +4,7 @@ function HookCounterOne() {
     const [count, setCount] = useState(0)
     const [name, setName] = useState("")
 
-    // replace life cycle method: componentDidMount(), componentDidUpdate() and componentWillUnmount
+    // replace life cycle method: componentDidMount, componentDidUpdate and componentWillUnmount
     // useEffect hook lets you perform side effects in function components. it runs after every render
     useEffect(() => {
         console.log('useEffect - updating')
