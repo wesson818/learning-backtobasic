@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchUsers } from '../redux';
 
-function UserContainer({ userData, fetchUsers }) {
+const UserContainer = ({ userData, fetchUsers }) => {
     useEffect(() => {
         fetchUsers();
     }, []);

@@ -61,6 +61,7 @@ const reducer = (state = initialState, action) => {
     }
 };
 
+// API call
 const fetchUsers = () => {
     return (dispatch) => {
         dispatch(fetchUsersRequest());

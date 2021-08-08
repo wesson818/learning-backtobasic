@@ -1,3 +1,7 @@
+// A store that holds the state of your application.
+// An action that describes the changes in the state of the application
+// A reducer which actually carries out the state transition depending on the action
+
 const redux = require('redux');
 const reduxLogger = require('redux-logger');
 
@@ -8,10 +12,10 @@ const logger = reduxLogger.createLogger();
 
 console.log('From Redux Demo index.js');
 
+// action
 const BUY_CAKE = 'BUY_CAKE',
       BUY_ICE_CREAM = 'BUY_ICE_CREAM';
 
-// action
 const buyCake = () => {
     return {
         type: BUY_CAKE,
@@ -88,6 +92,12 @@ const rootReducer = combineReducers({
 });
 
 // store
+// Responsibilities:
+// - holds application state
+// - allows access to state via getState()
+// - allow state to be updated via dispatch (action)
+// registers listeners via subscribe (listener)
+// handles un-registering of listeners via the function returned by subscribe (listener)
 const store = createStore(rootReducer, applyMiddleware(logger));
 // store.getState()
 console.log('Initial state', store.getState());
