@@ -1,9 +1,7 @@
 .vscode
+.vscode/settings.json
 .DS_Store
 node_modules
 /dist
-/JavaScript/testing.js
-/JavaScript/testingArray.js
-/JavaScript/testing2.js
 /Angular/doka/lib
 /JavaScript/doka
