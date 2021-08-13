@@ -1,0 +1,57 @@
+.App {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+label {
+  font-weight: bold;
+  display: flex;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+input[type='text'],
+input[type='email'],
+textarea {
+  display: block;
+  width: 400px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  /* margin-bottom: 20px; */
+}
+
+button {
+  font-family: inherit; /* For all browsers */
+  font-size: 100%; /* For all browsers */
+  line-height: 1.15; /* For all browsers */
+  margin: 20px 0 0; /* Firefox and Safari have margin */
+  padding: 10px 20px;
+  overflow: visible; /* Edge hides overflow */
+  text-transform: none; /* Firefox inherits text-transform */
+  -webkit-appearance: button; /* Safari otherwise prevents some styles */
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
+
+button:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+.form-control {
+  margin-bottom: 20px;
+}
+
+.error {
+  color: red;
+}
