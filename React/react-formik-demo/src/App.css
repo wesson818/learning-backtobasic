@@ -4,7 +4,7 @@
   margin: 20px;
 }
 
-label {
+label:not(.inlineLabel) {
   font-weight: bold;
   display: flex;
   margin-top: 15px;
@@ -13,7 +13,9 @@ label {
 
 input[type='text'],
 input[type='email'],
-textarea {
+input[type='password'],
+textarea,
+select {
   display: block;
   width: 400px;
   padding: 6px 12px;
@@ -27,7 +29,8 @@ textarea {
   /* margin-bottom: 20px; */
 }
 
-button {
+button[type='submit'],
+button[type='reset'] {
   font-family: inherit; /* For all browsers */
   font-size: 100%; /* For all browsers */
   line-height: 1.15; /* For all browsers */
