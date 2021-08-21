@@ -8,11 +8,13 @@ import ParentOne from './components/Optimization/ParentOne';
 import ChildOne from './components/Optimization/ChildOne';
 import GrandParent from './components/Optimization/GrandParent';
 import ParentTwo from './components/Optimization/ParentTwo';
+import { ContextParent } from './components/Context/ContextParent';
+import { ChildA } from './components/Context/ContextChildren';
 
 function App() {
   return (
     <div className="App">
-      <UseState />
+      {/* <UseState />
       <br />
       <UseReducer />
       <br />
@@ -25,6 +27,10 @@ function App() {
       <GrandParent />
       <br />
       <ParentTwo />
+      <br /> */}
+      <ContextParent>
+        <ChildA />
+      </ContextParent>
     </div>
   );
 }
