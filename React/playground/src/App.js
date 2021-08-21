@@ -42,7 +42,11 @@ import HookMouse from './components/HookMouse'
 import HookMouseContainer from './components/HookMouseContainer'
 import FragmentDemo from './components/FragmentDemo'
 import HookTimer from './components/HookTimer'
-import CounterOne from './components/CounterOne'
+import { DocTitleOne } from './components/CustomHook/DocTitleOne'
+import { DocTitleTwo } from './components/CustomHook/DocTitleTwo'
+import CounterOne from './components/CustomHook/CounterOne'
+import { CustomHookCounterTwo } from './components/CustomHook/CustomHookCounterTwo'
+import { UserForm } from './components/CustomHook/UserForm'
 
 // import { useQuery, gql } from '@apollo/client';
 
@@ -108,6 +112,10 @@ export default function App () {
     <div className="App-header">
       <PortalDemo />
       <HookTimer />
+      {/* Custom Hook */}
+      <DocTitleOne />
+      <DocTitleTwo />
+      <UserForm />
       {/* <HookMouse /> */}
       <HookMouseContainer />
       <ClickCounter name="button: " />
@@ -115,7 +123,9 @@ export default function App () {
       {/* <ClickCounterTwo />
       <HoverCounterTwo /> */}
       {/* Render Props */}
+      {/* Custom Hook */}
       <CounterOne />
+      <CustomHookCounterTwo />
       <CounterTwo>
         {(count, incrementCount) => (
           <ClickCounterTwo count={count} incrementCount={incrementCount} />
