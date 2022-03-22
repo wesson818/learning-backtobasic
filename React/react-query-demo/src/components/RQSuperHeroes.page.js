@@ -1,0 +1,23 @@
+import { useQuery } from 'react-query'
+import axios from 'axios'
+
+const fetchSuperHeroes = () => 
+  axios.get('http://localhost:4000/superheroes')
+
+export const RQSuperHeroesPage = () => {
+    const {isLoading, data, isError, error} = useQuery('super-heroes', fetchSuperHeroes)
+
+    if (isLoading) <h2>Loading...</h2>
+
+    if (isError) <h2>{error.message}</h2>
+
+    return (
+      <>
+        <h2>RQ Super Heroes Page</h2>
+        {data?.data.map(hero => {
+          return <div>{hero.name}</div>
+        })}
+      </>
+    )    
+}
+  

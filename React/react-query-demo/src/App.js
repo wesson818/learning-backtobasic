@@ -1,29 +1,45 @@
-import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Navbar } from "./components/Navbar";
-import { People } from "./components/People";
-import { Planets } from "./components/Planets";
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { HomePage } from './components/Home.page';
+import { RQSuperHeroesPage } from './components/RQSuperHeroes.page';
+import { SuperHeroesPage } from './components/SuperHeroes.page';
+import { StarWarPage } from './components/StarWar.page';
 import { ReactQueryDevtools } from "react-query/devtools";
 
+const queryClient = new QueryClient()
+
 function App() {
-  const [page, setPage] = useState('planets')
-
-  const queryClient = new QueryClient()
-
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
-        <div className="App">
-          <h1>Star Wars Info</h1>
-          <Navbar setPage={setPage} />
-          <div className="content">
-            {page === 'planets' ? <Planets /> : <People />}
-          </div>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to='/'>Home</Link>
+              </li>
+              <li>
+                <Link to='/super-heroes'>Traditional Super Heroes</Link>
+              </li>
+              <li>
+                <Link to='/rq-super-heroes'>RQ Super Heroes</Link>
+              </li>
+              <li>
+                <Link to='/star-war'>Star War Info</Link>
+              </li>
+            </ul>
+          </nav>
+          <Routes>
+            <Route path='/star-war' element={<StarWarPage/>} />
+            <Route path='/super-heroes' element={<SuperHeroesPage/>} />
+            <Route path='/rq-super-heroes' element={<RQSuperHeroesPage/>} />
+            <Route path='/' element={<HomePage/>} />
+          </Routes>
         </div>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </>
-  );
+      </Router>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  )
 }
 
-export default App;
+export default App
