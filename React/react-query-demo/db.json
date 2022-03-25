@@ -15,5 +15,31 @@
         "name": "Wonder Woman",
         "alterEgo": "Princess Diana"
       }
+    ],
+    "friends": [
+      {
+        "id": 1,
+        "name": "Jacky Chen"
+      },
+      {
+        "id": 2,
+        "name": "Bruce Lee"
+      },
+      {
+        "id": 3,
+        "name": "Yao Ming"
+      }
+    ],
+    "user": [
+      {
+        "id": "wzhang@me.com",
+        "channelId": "backtobasic"
+      }
+    ],
+    "channels": [
+      {
+        "id": "backtobasic",
+        "courses": ["react", "vue", "angular"]
+      }
     ]
 }

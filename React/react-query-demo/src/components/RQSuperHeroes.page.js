@@ -1,9 +1,6 @@
-import { useQuery } from 'react-query'
-import axios from 'axios'
 import { useState } from 'react'
-
-const fetchSuperHeroes = () => 
-  axios.get('http://localhost:4000/superheroes')
+import { useSuperHeroesData } from './hooks/useSuperHeroesData'
+import { Link } from 'react-router-dom';
 
 export const RQSuperHeroesPage = () => {
     const [refetchTimes, setRefetchTimes] = useState(0);
@@ -17,14 +14,7 @@ export const RQSuperHeroesPage = () => {
       console.log('onError', error);
     }
     const {isLoading, data, isError, error, isFetching, refetch} = 
-      useQuery('super-heroes', fetchSuperHeroes, {
-        enabled: false,
-        // need enable: true to make refetchInterval work
-        refetchInterval: intervalTime,
-        refetchIntervalInBackground: true,
-        onSuccess,
-        onError,
-      })
+    useSuperHeroesData( intervalTime, onSuccess, onError);
 
     if (isLoading || isFetching) <h2>Loading...</h2>
 
@@ -33,10 +23,13 @@ export const RQSuperHeroesPage = () => {
     return (
       <>
         <h2>RQ Super Heroes Page</h2>
-        <button onClick={refetch}>Fetch Data</button>
+        <button onClick={refetch}>Fetch Data</button><br /><br />
         {data?.data.map(hero => {
-          return <div key={hero.id}>{hero.name}</div>
+          return <Link key={`${hero.id}`} to={`/rq-super-heroes/${hero.id}`}>{hero.name}<br /><br /></Link>
         })}
+        {/* {data?.map(heroName => {
+          return <div key={heroName}>{heroName}</div>
+        })} */}
       </>
     )    
 }
