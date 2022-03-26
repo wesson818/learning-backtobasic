@@ -9,6 +9,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { ParallelQueriesPage } from "./components/ParallelQueries.page";
 import {DynamicParallelQueriesPage } from "./components/DynamicParallelQueries.page"
 import { DependentQueriesPage } from "./components/DependentQueries.page";
+import { InfiniteQueriesPage } from "./components/InfiniteQueries.page";
 
 const queryClient = new QueryClient()
 
@@ -38,6 +39,9 @@ function App() {
                 <Link to='/dependent-queries'>Dependent Queries</Link>
               </li>
               <li>
+                <Link to='/infinite-queries'>Infinite Queries</Link>
+              </li>
+              <li>
                 <Link to='/star-war'>Star War Info</Link>
               </li>
             </ul>
@@ -50,6 +54,7 @@ function App() {
             <Route path='/parallel-queries' element={<ParallelQueriesPage/>} />
             <Route path='/dynamic-parallel-queries' element={<DynamicParallelQueriesPage/>} />
             <Route path='/dependent-queries' element={<DependentQueriesPage email='wzhang@me.com' />} />
+            <Route path='/infinite-queries' element={<InfiniteQueriesPage/>} />
             <Route path='/' element={<HomePage/>} />
           </Routes>
         </div>

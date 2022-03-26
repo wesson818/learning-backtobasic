@@ -10,12 +10,13 @@ export const Planets = () => {
         return res.json()
     }
     const [ page, setPage ] = useState(1);
-    const { data, status } = useQuery(['planets', {greeting: 'hello star war', page: page}], fetchPlanets);
-    // , {
-    //     staleTime: 0,
-    //     cacheTime: 10,
-    //     onSuccess: () => console.log("data fetch no problem")
-    // })
+    const { data, status } = useQuery(['planets', {greeting: 'hello star war', page: page}], fetchPlanets
+    , {
+        keepPreviousData: true
+        // staleTime: 0,
+        // cacheTime: 10,
+        // onSuccess: () => console.log("data fetch no problem")
+    })
     
     console.log('data', data)
     console.log('status', status)
