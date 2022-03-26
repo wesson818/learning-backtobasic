@@ -8,6 +8,7 @@ import { StarWarPage } from './components/StarWar.page';
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ParallelQueriesPage } from "./components/ParallelQueries.page";
 import {DynamicParallelQueriesPage } from "./components/DynamicParallelQueries.page"
+import { DependentQueriesPage } from "./components/DependentQueries.page";
 
 const queryClient = new QueryClient()
 
@@ -34,6 +35,9 @@ function App() {
                 <Link to='/dynamic-parallel-queries'>Dynamic Parallel Queries</Link>
               </li>
               <li>
+                <Link to='/dependent-queries'>Dependent Queries</Link>
+              </li>
+              <li>
                 <Link to='/star-war'>Star War Info</Link>
               </li>
             </ul>
@@ -45,6 +49,7 @@ function App() {
             <Route path='/rq-super-heroes/:heroId' element={<RQSuperHeroPage/>} />
             <Route path='/parallel-queries' element={<ParallelQueriesPage/>} />
             <Route path='/dynamic-parallel-queries' element={<DynamicParallelQueriesPage/>} />
+            <Route path='/dependent-queries' element={<DependentQueriesPage email='wzhang@me.com' />} />
             <Route path='/' element={<HomePage/>} />
           </Routes>
         </div>
