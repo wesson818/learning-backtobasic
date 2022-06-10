@@ -1,0 +1,48 @@
+<a t></a>
+<b l></b>
+<c i></c>
+<a b></a>
+<style>
+  body {
+    background: #6CB3A9;
+  }
+  a,b,c {
+    display: block;
+    margin: auto;
+    position: relative;
+  }
+  a{
+    z-index:2;
+    width: 200px;
+    height: 100px;
+  }
+  a[t] {
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    background: #D25B70;
+    margin-top: 50px;
+    margin-bottom: -30px;
+    clip-path: inset(0 0 10px 0);
+  }
+  a[b] {
+    border-radius: 0 0 50% 50% / 0 0 100% 100%;
+    background: #FFFFFF;
+    margin-top: -25px;
+    clip-path: inset(10px 0 0 0);
+  }
+  c[i]{
+    z-index:1;
+    background: #781728;
+    width: 180px;
+    height: 50px;
+    margin-top: -60px
+  }
+  b[l] {
+    z-index:3;
+    background: #F6DF96;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 10px solid #781728;
+    margin-top: -35px
+  }
+</style>
